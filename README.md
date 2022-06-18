@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Boilerplate template repo for generic websites that are aimed to display blockchain data in some form or another.
+
+Probably biased clean-code standards are applied.
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
+The obvious stuff
+```shell
+yarn
 yarn dev
 ```
+Open [http://localhost:3000](http://localhost:3000) with your browser and enjoy.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The stack
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Nextjs + Redux-toolkit + tailwind + scss + SWR
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Nextjs because it's React on steroids for production readiness.
+- Redux-toolkit because it's Redux on steroids for ease of use & standardization
+- Tailwind + scss because it's css on steroids for developers that hate css
+- SWR because it's data fetching on steroids for effective presets for RESTFUL apis
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## TODO
 
-## Learn More
+- CosmJS specifics
+- Add React-toolkit, swr, cosmjs.
+- Add eslint with its specifics
+- Probably add some example code to help kickstart connecting to nodes and showing data in a clean way
+- Responsive design?
 
-To learn more about Next.js, take a look at the following resources:
+For data streaming SSE or Websockets because it's all we have. Probably.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Treeshaken RxJS is recommended for reactive programming
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploying
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Use Vercel or netlify. Shouldn't need any more than that
