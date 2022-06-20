@@ -1,2 +1,4 @@
+.husky
+.next
 node_modules
 out
