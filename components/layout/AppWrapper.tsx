@@ -1,13 +1,14 @@
+import type { FunctionComponent, ReactNode } from 'react';
+
 import { Aside } from '@/components/layout/Aside';
-import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { FunctionComponent, ReactNode } from 'react';
+import { Header } from '@/components/layout/Header';
 
 export const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 	return (
-		<div className="grid grid-cols-[160px,1fr] min-h-[100vh] w-[100vw]">
+		<div className="grid min-h-[100vh] w-[100vw] grid-cols-[160px,1fr]">
 			<Aside />
-			<div className="w-full h-full relative">
+			<div className="relative h-full w-full">
 				<Header />
 				{children}
 				<div className="absolute bottom-0 left-0 w-full">

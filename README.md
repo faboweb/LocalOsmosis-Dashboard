@@ -5,10 +5,12 @@ Probably biased clean-code standards are applied.
 ## Getting Started
 
 The obvious stuff
+
 ```shell
 yarn
 yarn dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser and enjoy.
 
 ## The stack
@@ -31,7 +33,6 @@ Nextjs + Redux-toolkit + tailwind + scss + SWR
 For data streaming SSE or Websockets because it's all we have. Probably.
 
 Treeshaken RxJS is recommended for reactive programming
-
 
 ## Deploying
 

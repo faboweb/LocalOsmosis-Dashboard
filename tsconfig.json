@@ -22,7 +22,8 @@
 			"@/styles/*": ["styles/*"],
 			"@/store/*": ["store/*"],
 			"@/hooks/*": ["hooks/*"],
-			"@/settings/*": ["settings/*"],
+			"@/settings/*": ["settings/*"]
+			//	add paths if more folders are required
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
