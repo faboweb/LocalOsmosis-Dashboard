@@ -1,21 +1,16 @@
 import type { AppProps } from 'next/app';
-import '../styles/globals.scss';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout';
-import { Aside } from '@/components/layout/Aside';
+import '@/styles/globals.scss';
+import { AppWrapper } from '@/components/layout/AppWrapper';
+import { swrConfig } from '@/settings/index';
+import { SWRConfig } from 'swr';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<div className="grid grid-cols-[160px,1fr] min-h-[100vh] w-[100vw]">
-			<Aside />
-			<div className="w-full h-full relative">
-				<Header />
+		<SWRConfig value={swrConfig.use('default')}>
+			<AppWrapper>
 				<Component {...pageProps} />
-				<div className="absolute bottom-0 left-0 w-full">
-					<Footer />
-				</div>
-			</div>
-		</div>
+			</AppWrapper>
+		</SWRConfig>
 	);
 }
 
