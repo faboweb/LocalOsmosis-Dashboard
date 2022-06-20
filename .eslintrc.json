@@ -57,7 +57,8 @@
 				"@typescript-eslint/no-unused-vars": "off",
 				"unused-imports/no-unused-imports": "error",
 				"unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-				"no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }]
+				"no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
+				"no-underscore-dangle": "off"
 			}
 		}
 		//		// Configuration for testing

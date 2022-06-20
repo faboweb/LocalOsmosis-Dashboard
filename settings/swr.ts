@@ -1,15 +1,19 @@
-import type { SWRConfiguration } from 'swr';
 import axios, { AxiosResponse } from 'axios';
+import type { SWRConfiguration } from 'swr';
 
 export const fetcher = (url: string) => axios.get(url).then((res: AxiosResponse) => res.data);
 
 type SwrConfigType = 'default' | 'block' | 'once';
 class SWRConfig {
 	private static _instance: SWRConfig;
+
 	public static get Instance() {
-		return this._instance || (this._instance = new this());
+		if (!this._instance) this._instance = new this();
+		return this._instance;
 	}
+
 	private configMap = new Map<string, SWRConfiguration>();
+
 	private _defaultValue: SWRConfiguration = {
 		fetcher,
 		revalidateIfStale: true,
@@ -37,17 +41,17 @@ class SWRConfig {
 	};
 
 	private constructor() {
-		this.configMap.set('default', Object.assign({}, this._defaultValue));
+		this.configMap.set('default', { ...this._defaultValue });
 		const onceConfig: Partial<SWRConfiguration> = {
 			dedupingInterval: Number.MAX_SAFE_INTEGER,
 		};
-		this.configMap.set('once', Object.assign({}, this._defaultValue, onceConfig));
+		this.configMap.set('once', { ...this._defaultValue, ...onceConfig });
 
 		const blockConfig: Partial<SWRConfiguration> = {
 			dedupingInterval: 6000,
 			refreshInterval: 6000,
 		};
-		this.configMap.set('block', Object.assign({}, this._defaultValue, blockConfig));
+		this.configMap.set('block', { ...this._defaultValue, ...blockConfig });
 	}
 
 	public use(swrConfig: SwrConfigType) {
