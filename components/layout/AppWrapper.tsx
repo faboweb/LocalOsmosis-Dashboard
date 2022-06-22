@@ -8,9 +8,9 @@ export const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({ childre
 	return (
 		<div className="grid min-h-[100vh] w-[100vw] grid-cols-[160px,1fr]">
 			<Aside />
-			<div className="relative h-full w-full">
+			<div className="relative grid grid-rows-[80px,1fr,80px]">
 				<Header />
-				{children}
+				<div className="min-h-[calc(100vh-160px)] w-full">{children}</div>
 				<div className="absolute bottom-0 left-0 w-full">
 					<Footer />
 				</div>

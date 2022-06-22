@@ -14,6 +14,7 @@ class SWRConfig {
 
 	private configMap = new Map<string, SWRConfiguration>();
 
+	// reference https://swr.vercel.app/docs/options#options
 	private _defaultValue: SWRConfiguration = {
 		fetcher,
 		revalidateIfStale: true,

@@ -1,4 +1,4 @@
-export type SupportedChain = 'cosmos' | 'addmorechainshere';
+export type SupportedChain = 'cosmos'; // TODO : add more chains here
 // TODO : add a mainnet chain id mapper?
 
 interface ChainEndpoint {
