@@ -2,35 +2,32 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/store/index';
 
+import { ChainStatus } from '@/utils/data/server';
+
 // Define a type for the slice state
 interface ChainDataState {
-	value: number;
+	status: ChainStatus[];
 }
 
-// Define the initial state using that type
+//	cosmoshub is deemed to be always available
 const initialState: ChainDataState = {
-	value: 0,
+	status: [{ name: 'cosmoshub', available: true }],
 } as ChainDataState;
 
 export const chainDataSlice = createSlice({
 	name: 'chainData',
 	initialState,
 	reducers: {
-		increment: state => {
-			state.value += 1;
-		},
-		decrement: state => {
-			state.value -= 1;
-		},
-		incrementByAmount: (state, action: PayloadAction<number>) => {
-			state.value += action.payload;
+		setChainStatus: (state, action: PayloadAction<ChainStatus[]>) => {
+			state.status = action.payload;
 		},
 	},
 });
 
-export const { increment, decrement, incrementByAmount } = chainDataSlice.actions;
+export const { setChainStatus } = chainDataSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectChain = (state: RootState) => state.counter.value;
+export const selectChainStatuses = (state: RootState) => state.chainData.status;
+export const selectAvailableChains = (state: RootState) => state.chainData.status.filter(chain => chain.available);
 
 export default chainDataSlice.reducer;

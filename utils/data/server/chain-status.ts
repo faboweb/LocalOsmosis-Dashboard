@@ -1,13 +1,16 @@
-// stuff to fetch server-side
 import axios from 'axios';
 
-import { ChainStatus } from '@/utils/server/types';
+import { ChainStatus } from '@/utils/data/server/types';
+import { urlBuilder } from '@/utils/index';
 
 interface ChainNodeProvider {
 	address: string;
 	provider?: string;
 }
 
+// TODO : auto parse https://github.com/cosmos/chain-registry/blob/master/chain.schema.json into a types file?
+// ^ in hindsight, probably running a dedicated data aggregator is more maintainable
+//	https://status.cosmos.directory/
 interface ChainStatusResponse {
 	name: string;
 	height: number;
@@ -30,11 +33,11 @@ interface AllChainStatusResponse {
 // TODO : append whatever is needed to be populated for every page
 export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 	try {
-		const res = await axios.get('https://status.cosmos.directory/');
+		const res = await axios.get(urlBuilder.getBase('status'));
 		const data: AllChainStatusResponse = res?.data;
 		const ret: ChainStatus[] = [];
 		data.chains.forEach(chainData => {
-			// only use cosmos and osmosis for development
+			// only use cosmos, osmosis, juno, crescent for development
 			if (
 				process.env.NODE_ENV === 'development' &&
 				chainData.name !== 'cosmoshub' &&

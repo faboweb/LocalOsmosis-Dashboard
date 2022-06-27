@@ -1,4 +1,5 @@
-/* eslint-disable import/no-named-as-default */ // disabled because intended by redux conventions
+/* eslint-disable import/no-named-as-default */
+// disabled because intended by redux conventions
 import { configureStore } from '@reduxjs/toolkit';
 
 import chainDataSlice from '@/store/features/chain/chainDataSlice';

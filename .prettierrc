@@ -7,4 +7,21 @@
 	"trailingComma": "es5",
 	"jsxBracketSameLine": true,
 	"arrowParens": "avoid",
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"importOrder": [
+		"^(next/(.*)$)|^(next$)",
+		"^react$",
+		"<THIRD_PARTY_MODULES>",
+		"^@/pages/.+$",
+		"^@/store/.+$",
+		"^@/components/.+$",
+		"^@/hooks/.+$",
+		"^@/utils/.+$",
+		"^@/settings/.+$",
+		"^@/constants/.+$",
+		"^@/styles/.+$",
+		"^\\.?\\./.+$"
+	],
+	"importOrderCaseInsensitive": true,
 }
