@@ -1,3 +1,5 @@
+// keep all layout related code here, just use pixels because it's the perks of tailwind + jit
+
 import type { FunctionComponent, ReactNode } from 'react';
 
 import { Aside } from '@/components/layout/Aside';

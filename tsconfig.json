@@ -22,7 +22,8 @@
 			"@/styles/*": ["styles/*"],
 			"@/store/*": ["store/*"],
 			"@/hooks/*": ["hooks/*"],
-			"@/settings/*": ["settings/*"]
+			"@/settings/*": ["settings/*"],
+			"@/utils/*": ["utils/*"]
 			//	add paths if more folders are required
 		}
 	},
