@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import { GetServerSidePropsContext } from 'next';
 
 import { useInitializeApp } from '@/hooks/common/useInitializeApp';
-
 import { ServerSideProps } from '@/utils/data/server';
 import { getBaseServerSideProps } from '@/utils/data/server/props';
 

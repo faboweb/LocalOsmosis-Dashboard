@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/store/index';
-
 import { ChainStatus } from '@/utils/data/server';
 
 // Define a type for the slice state
