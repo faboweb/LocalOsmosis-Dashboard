@@ -3,7 +3,7 @@ import axios from 'axios';
 import { cosmosAsset } from '@/constants/defaults';
 import { urlBuilder } from '@/utils/chains';
 import { ChainAssets, RawChainAsset, refineChainAsset } from '@/utils/data/client/types';
-import { localStorage } from '@/utils/data/localStorage/localStore';
+import { localStorage } from '@/utils/data/localStorage';
 
 // TODO : auto parse https://github.com/cosmos/chain-registry/blob/master/assetlist.schema.json into a types file?
 //  https://chains.cosmos.directory/osmosis/assetlist
