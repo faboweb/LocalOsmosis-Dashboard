@@ -33,7 +33,7 @@ class URLBuilder {
 	 * @param route ChainDataRoute
 	 */
 	public getChainData(route: ChainDataRoute, chain: string) {
-		return `${this.baseUrls.rest}${chain}/${this.chainDataMap[route]}`;
+		return `${this.baseUrls.chainData}${chain}/${this.chainDataMap[route]}`;
 	}
 
 	// TODO : rpc related stuff

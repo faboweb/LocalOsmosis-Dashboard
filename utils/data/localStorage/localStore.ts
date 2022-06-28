@@ -2,6 +2,8 @@ import store2 from 'store2';
 
 type StoreNamespace = 'chain' | 'global';
 
+// returns boolean for one line error handling
+// ex) if(!localStorage.set('test', 'test')) throw new Error('didn't work')
 export const localStorage = {
 	get: (key: string, namespace: StoreNamespace = 'global') => {
 		const store = store2.namespace(namespace);

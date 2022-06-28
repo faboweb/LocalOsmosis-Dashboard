@@ -3,6 +3,9 @@
 @tailwind components;
 
 @layer base {
+	html {
+		@apply text-gray-100
+	}
 	h1 {
 		@apply text-3xl;
 	}

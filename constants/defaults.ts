@@ -1,6 +1,6 @@
-import { RefinedChainAsset } from '@/utils/data/client/types';
+import { ChainAsset } from '@/utils/data/client/types';
 
-export const cosmosAsset: RefinedChainAsset = {
+export const cosmosAsset: ChainAsset = {
 	description: 'The native staking and governance token of the Cosmos Hub.',
 	denomUnits: [
 		{

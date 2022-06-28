@@ -9,7 +9,7 @@ export interface DenomUnit {
 }
 
 // the first asset in the list of ChainAssets appears to be the native asset
-export interface ChainAsset {
+export interface RawChainAsset {
 	description?: string;
 	denom_units: DenomUnit[];
 	base: string; //		"uatom"
@@ -26,20 +26,22 @@ export interface ChainAsset {
 }
 
 // replace logo_URIs & base with logo & micro. Camel cased
-export type RefinedChainAsset = CamelCasedPropertiesDeep<
-	Merge<Except<ChainAsset, 'logo_URIs' | 'base'>, { logo: string; micro: string; native?: string }>
+export type ChainAsset = CamelCasedPropertiesDeep<
+	Merge<Except<RawChainAsset, 'logo_URIs' | 'base'>, { logo: string; micro: string; native?: string }>
 >;
 
 export interface ChainAssets {
 	chainName: string;
-	assets: RefinedChainAsset[];
+	assets: ChainAsset[];
 }
 
-export const refineChainAsset = (asset: ChainAsset): RefinedChainAsset => {
+export const refineChainAsset = (asset: RawChainAsset): ChainAsset => {
 	const camelCased = camelcaseKeys(asset, { deep: true });
+
 	return {
 		...pick(camelCased, ['description', 'denomUnits', 'name', 'symbol', 'display', 'coingeckoId']),
 		micro: camelCased.base,
-		logo: camelCased.logoURIs?.svg ?? camelCased.logoURIs?.png ?? '/icons/generic/missing-token.svg',
+		// @ts-ignore - bug with camelcaseKeys
+		logo: camelCased.logoUrIs?.svg ?? camelCased.logoUrIs?.png ?? '/icons/generic/missing-token.svg',
 	};
 };

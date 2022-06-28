@@ -43,7 +43,8 @@ export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 				chainData.name !== 'cosmoshub' &&
 				chainData.name !== 'osmosis' &&
 				chainData.name !== 'juno' &&
-				chainData.name !== 'crescent'
+				chainData.name !== 'crescent' &&
+				chainData.name !== 'chronicnetwork' //	one that api is down
 			)
 				return;
 
