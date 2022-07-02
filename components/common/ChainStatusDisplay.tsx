@@ -3,13 +3,13 @@ import { FunctionComponent } from 'react';
 import cn from 'clsx';
 
 import { useAppSelector } from '@/hooks/store';
-import { selectChainData } from '@/store/features/chain/chainDataSlice';
+import { selectChainAssets } from '@/store/features/chain/chainDataSlice';
 import { ChainStatus } from '@/utils/data/server';
 
 import { Img } from './Img';
 
 export const ChainStatusDisplay: FunctionComponent<{ chainStatus: ChainStatus }> = ({ chainStatus }) => {
-	const chainAsset = useAppSelector(state => selectChainData(state, chainStatus.name));
+	const chainAsset = useAppSelector(state => selectChainAssets(state, chainStatus.name));
 	const primaryAsset = chainAsset?.assets?.[0];
 	return (
 		<div className="relative w-12">

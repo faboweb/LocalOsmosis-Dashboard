@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { sort } from 'fast-sort';
 
 import { ChainStatus } from '@/utils/data/server/types';
 import { urlBuilder } from '@/utils/index';
@@ -38,22 +39,22 @@ export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 		const ret: ChainStatus[] = [];
 		data.chains.forEach(chainData => {
 			// only use cosmos, osmosis, juno, crescent for development
-			if (
-				process.env.NODE_ENV === 'development' &&
-				chainData.name !== 'cosmoshub' &&
-				chainData.name !== 'osmosis' &&
-				chainData.name !== 'juno' &&
-				chainData.name !== 'crescent' &&
-				chainData.name !== 'chronicnetwork' //	one that api is down
-			)
-				return;
+			// if (
+			// 	process.env.NODE_ENV === 'development' &&
+			// 	chainData.name !== 'cosmoshub' &&
+			// 	chainData.name !== 'osmosis' &&
+			// 	chainData.name !== 'juno' &&
+			// 	chainData.name !== 'crescent' &&
+			// 	chainData.name !== 'chronicnetwork' //	one that api is down
+			// )
+			// 	return;
 
 			// ignore chains with no height(probably halted), only available if both rpc & rest are available
 			const chainStatus: ChainStatus = { name: chainData.name, available: false };
 			if (chainData.height) chainStatus.available = chainData.rpc.available && chainData.rest.available;
 			ret.push(chainStatus);
 		});
-		return ret;
+		return sort(ret).asc('name');
 	} catch (ex) {
 		console.warn(ex);
 		return [];

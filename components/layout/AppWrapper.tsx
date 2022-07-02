@@ -1,14 +1,13 @@
 // keep all layout related code here, just use pixels because it's the perks of tailwind + jit
 import type { FunctionComponent, ReactNode } from 'react';
 
-import { Aside } from '@/components/layout/Aside';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 
 export const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 	return (
-		<div className="grid min-h-[100vh] w-[100vw] grid-cols-[160px,1fr]">
-			<Aside />
+		// <div className="grid min-h-[100vh] w-[100vw] grid-cols-[160px,1fr]">
+		<div className="grid min-h-[100vh] w-[100vw]">
 			<div className="relative grid grid-rows-[80px,1fr,80px]">
 				<Header />
 				<div className="min-h-[calc(100vh-160px)] w-full">{children}</div>

@@ -8,7 +8,7 @@ import { getBaseServerSideProps } from '@/utils/data/server/props';
 const Home: NextPage<ServerSideProps> = (serverProps: ServerSideProps) => {
 	useInitializeApp(serverProps);
 	return (
-		<div className="flex h-full w-full items-center justify-center bg-gray-800">
+		<div className="flex h-full w-full items-center justify-center bg-bg">
 			<h1>Home area</h1>
 		</div>
 	);

@@ -1,3 +1,4 @@
+//	turns out chains.cosmos.directory returns the same data including other required params
 import axios from 'axios';
 
 import { cosmosAsset } from '@/constants/defaults';
@@ -15,9 +16,9 @@ interface ChainAssetsResponse {
 
 export async function getChainAssets(chain: string): Promise<ChainAssets> {
 	try {
-		let assets = localStorage.get(chain, 'chain');
+		let assets = localStorage.get(chain, 'chain-assets');
 		if (assets) return assets;
-		const url = urlBuilder.getChainData('assets', chain);
+		const url = urlBuilder.getChainAssets(chain);
 		const res = await axios.get(url);
 		const data: ChainAssetsResponse = res?.data;
 		assets = data.assets.map((asset: RawChainAsset) => refineChainAsset(asset));
@@ -25,7 +26,7 @@ export async function getChainAssets(chain: string): Promise<ChainAssets> {
 			chainName: chain,
 			assets,
 		};
-		if (!localStorage.set(chain, ret, 'chain')) console.warn(`failed to set localStorage for chain[${chain}]`);
+		if (!localStorage.set(chain, ret, 'chain-assets')) console.warn(`failed to set localStorage for chain[${chain}]`);
 		return ret;
 	} catch (ex) {
 		console.warn(ex);

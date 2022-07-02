@@ -32,8 +32,12 @@ class URLBuilder {
 	 * @desc chain data queriable via https://cosmos.directory/cosmoshub
 	 * @param route ChainDataRoute
 	 */
-	public getChainData(route: ChainDataRoute, chain: string) {
-		return `${this.baseUrls.chainData}${chain}/${this.chainDataMap[route]}`;
+	public getChainData(chain: string) {
+		return `${this.baseUrls.chainData}${chain}`;
+	}
+
+	public getChainAssets(chain: string) {
+		return `${this.baseUrls.chainData}${chain}/${this.chainDataMap.assets}`;
 	}
 
 	// TODO : rpc related stuff

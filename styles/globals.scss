@@ -4,7 +4,9 @@
 
 @layer base {
 	html {
-		@apply text-gray-100
+		@apply text-txtWhite;
+		@apply tracking-tighter;
+		@apply font-mono;
 	}
 	h1 {
 		@apply text-3xl;
@@ -18,12 +20,23 @@
 		@apply text-xl;
 	}
 
+	h1,
+	h2,
+	h3 {
+		@apply tracking-wider;
+	}
+
 	h4 {
 		@apply text-lg;
 	}
 
 	h5 {
 		@apply text-sm;
+	}
+
+	h4,
+	h5 {
+		@apply tracking-normal;
 	}
 
 	p {
