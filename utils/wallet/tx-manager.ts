@@ -26,7 +26,7 @@ export class TxManager {
 		this._state.queuedTxs.push(tx);
 	}
 
-	public async signNextUnsignedTx(): void {
+	public async signNextUnsignedTx(): Promise<void> {
 		if (this.isProcessing) return;
 		if (this._state.queuedTxs.length === 0) return;
 		const toSignTx = this._state.queuedTxs.find(tx => tx.state === TxState.UNSIGNED);

@@ -8,7 +8,7 @@ export class Tx {
 	constructor(txObj: any) {
 		this._tx = {
 			id: uuid(),
-			chainId: string,
+			chainId: txObj.chainId,
 			created: Date.now(),
 			content: txObj,
 			signedTx: '',
