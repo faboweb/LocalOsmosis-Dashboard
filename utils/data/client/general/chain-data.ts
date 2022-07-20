@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { cosmosChainData } from '@/constants/defaults';
 import { urlBuilder } from '@/utils/chains';
-import { RawChainData, refineChainData } from '@/utils/data/client/types';
+import { RawChainData, refineChainData } from '@/utils/data/client/general/types';
 import { localStorage } from '@/utils/data/localStorage';
 
 export interface ChainDataResponse {
@@ -35,8 +35,8 @@ export async function getChainData(chain: string): Promise<any> {
 		commit: '11af57f2c50167d2199a485882d1b5900cb681d9',
 		timestamp: 1656695635,
 	},
-	chain: {
-		$schema: '../chain.schema.json',
+	general: {
+		$schema: '../general.schema.json',
 		chain_name: 'cosmoshub',
 		chain_id: 'cosmoshub-4',
 		pretty_name: 'Cosmos Hub',

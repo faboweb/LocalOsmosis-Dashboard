@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { sort } from 'fast-sort';
 
-import { ChainStatus } from '@/utils/data/client/types';
+import { ChainStatus } from '@/utils/data/client/general/types';
 import { urlBuilder } from '@/utils/index';
 
 interface ChainNodeProvider {

@@ -12,8 +12,8 @@ interface Path {
 }
 export const Nav: FunctionComponent = () => {
 	const router = useRouter();
-
 	const paths = useMemo(() => {
+		if (!router.isReady) return [];
 		const routes = router.asPath.split('/').filter(path => path !== '');
 		const ret: Path[] = [];
 		routes.forEach((route, index) => {
@@ -26,7 +26,7 @@ export const Nav: FunctionComponent = () => {
 			}
 		});
 		return ret;
-	}, [router.asPath]);
+	}, [router.asPath, router.isReady]);
 
 	return (
 		<nav className="my-auto px-20 lg:mx-auto lg:px-0">

@@ -3,12 +3,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import chainDataSlice from '@/store/features/chain/chainDataSlice';
+import validatorDataSlice from '@/store/features/chain/validatorDataSlice';
 import counterSlice from '@/store/features/example/counterSlice';
 
 export const store = configureStore({
 	reducer: {
 		counter: counterSlice,
 		chainData: chainDataSlice,
+		validatorData: validatorDataSlice,
 	},
 });
 

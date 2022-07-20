@@ -4,7 +4,7 @@ import cn from 'clsx';
 
 import { useAppSelector } from '@/hooks/store';
 import { selectChainAssets } from '@/store/features/chain/chainDataSlice';
-import { ChainStatus } from '@/utils/data/client';
+import { ChainStatus } from '@/utils/data/client/general';
 
 import { Img } from './Img';
 

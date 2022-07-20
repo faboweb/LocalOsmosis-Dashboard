@@ -1,6 +1,6 @@
 import store2 from 'store2';
 
-type StoreNamespace = 'chain-assets' | 'chain-data' | 'global';
+type StoreNamespace = 'chain-assets' | 'chain-data' | 'validators-data' | 'global';
 
 // returns boolean for one line error handling
 // ex) if(!localStorage.set('test', 'test')) throw new Error('didn't work')

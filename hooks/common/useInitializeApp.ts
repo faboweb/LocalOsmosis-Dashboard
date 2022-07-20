@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/store';
 import { setBulkChainAssets, setBulkChainData, setChainStatus } from '@/store/features/chain/chainDataSlice';
 import { AppDispatch } from '@/store/store';
-import { ChainAssets, ChainData, ChainStatus, getChainAssets, getChainStatuses } from '@/utils/data/client';
-import { getChainData } from '@/utils/data/client/chain-data';
+import { ChainAssets, ChainData, ChainStatus, getChainAssets, getChainStatuses } from '@/utils/data/client/general';
+import { getChainData } from '@/utils/data/client/general/chain-data';
 
 async function populateChainAssets(chainStatuses: ChainStatus[], dispatch: AppDispatch) {
 	const promises: Promise<ChainAssets>[] = [];
 	chainStatuses.forEach(chainStatus => {
-		//	chain assets for unvailable chains are also queriable
+		//	general assets for unvailable chains are also queriable
 		promises.push(getChainAssets(chainStatus.name));
 	});
 	const res = await Promise.all(promises);

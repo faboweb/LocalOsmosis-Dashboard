@@ -1,4 +1,4 @@
-import { ChainAsset, ChainData } from '@/utils/data/client/types';
+import { ChainAsset, ChainData } from '@/utils/data/client/general/types';
 
 export const cosmosAsset: ChainAsset = {
 	description: 'The native staking and governance token of the Cosmos Hub.',

@@ -1,7 +1,7 @@
 // https://cosmos.directory/ must be functional to work
 // TODO : run our own nodes obviously / make it less dependant on https://cosmos.directory/cosmoshub
 
-type BaseUrl = 'rpc' | 'rest' | 'status' | 'chainData';
+type BaseUrl = 'rpc' | 'rest' | 'status' | 'chainData' | 'validators';
 type ChainDataRoute = 'assets';
 // TODO : add rpc routes
 
@@ -18,6 +18,7 @@ class URLBuilder {
 		rest: 'https://rest.cosmos.directory/',
 		status: 'https://status.cosmos.directory/',
 		chainData: 'https://chains.cosmos.directory/',
+		validators: 'https://validators.cosmos.directory/',
 	};
 
 	private chainDataMap: Record<ChainDataRoute, string> = {
@@ -29,7 +30,7 @@ class URLBuilder {
 	}
 
 	/**
-	 * @desc chain data queriable via https://cosmos.directory/cosmoshub
+	 * @desc general data queriable via https://cosmos.directory/cosmoshub
 	 * @param route ChainDataRoute
 	 */
 	public getChainData(chain: string) {
@@ -38,6 +39,10 @@ class URLBuilder {
 
 	public getChainAssets(chain: string) {
 		return `${this.baseUrls.chainData}${chain}/${this.chainDataMap.assets}`;
+	}
+
+	public getValidators(chain: string) {
+		return `${this.baseUrls.validators}${chain}/`;
 	}
 
 	// TODO : rpc related stuff
