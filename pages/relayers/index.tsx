@@ -6,18 +6,16 @@ import { selectAvailableChains } from '@/store/features/chain/chainDataSlice';
 
 const Relayers: NextPage = () => {
 	const chains = useAppSelector(selectAvailableChains);
-	console.log(chains);
 	return (
 		<div className="wh-full flex flex-col items-center">
-			<h3 className="mt-10">Select chain</h3>
-			<p className="text-sm">(unstyled - minimal please don&apos;t grade me with this)</p>
-			<ul className="mt-10 flex flex-col items-center gap-5">
+			<h3>Select chain</h3>
+			<ul className="mt-10 flex w-full max-w-lg flex-row flex-wrap gap-y-1 gap-x-3">
 				{chains.map(chain => (
-					<li className="hoverEff p-4" key={chain.name}>
-						<Link href={`/relayers/${chain.name}`}>
-							<p>{chain.name}</p>
-						</Link>
-					</li>
+					<Link href={`/relayers/${chain.name}`} key={chain.name}>
+						<li className="hoverEff-txt p-2">
+							<a>{chain.name}</a>
+						</li>
+					</Link>
 				))}
 			</ul>
 		</div>

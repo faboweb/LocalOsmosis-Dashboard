@@ -31,6 +31,18 @@ interface AllChainStatusResponse {
 	chains: ChainStatusResponse[];
 }
 
+// const chains = [
+// 	'cosmoshub',
+// 	'osmosis',
+// 	'crescent',
+// 	'juno',
+// 	'agoric',
+// 	'stargaze',
+// 	'secret',
+// 	'evmos',
+// 	'axelar',
+// 	'fetchhub',
+// ];
 // TODO : append whatever is needed to be populated for every page
 export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 	try {
@@ -38,8 +50,7 @@ export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 		const data: AllChainStatusResponse = res?.data;
 		const ret: ChainStatus[] = [];
 		data.chains.forEach(chainData => {
-			// only use cosmos, osmosis
-			if (chainData.name !== 'cosmoshub' && chainData.name !== 'osmosis') return;
+			// if (!chains.includes(chainData.name)) return;
 
 			// ignore chains with no height(probably halted), only available if both rpc & rest are available
 			const chainStatus: ChainStatus = { name: chainData.name, available: false };

@@ -6,7 +6,7 @@ import { localStorage } from '@/utils/data/localStorage';
 
 interface ValidatorsResponse {
 	name: string;
-	valdiators: RawValidator[];
+	validators: RawValidator[];
 }
 
 export async function getValidatorsData(chain: string): Promise<Validator[]> {
@@ -16,7 +16,9 @@ export async function getValidatorsData(chain: string): Promise<Validator[]> {
 		const url = urlBuilder.getValidators(chain);
 		const res = await axios.get(url);
 		const data: ValidatorsResponse = res?.data;
-		return data.valdiators.map((validator: RawValidator) => refineRawValidator(validator));
+		return data.validators
+			.map((validator: RawValidator) => refineRawValidator(validator))
+			.sort((a, b) => Number(b.tokens) - Number(a.tokens));
 	} catch (e) {
 		console.warn(e);
 		return [];

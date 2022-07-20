@@ -18,7 +18,7 @@ class URLBuilder {
 		rest: 'https://rest.cosmos.directory/',
 		status: 'https://status.cosmos.directory/',
 		chainData: 'https://chains.cosmos.directory/',
-		validators: 'https://validators.cosmos.directory/',
+		validators: 'https://validators.cosmos.directory/chains/',
 	};
 
 	private chainDataMap: Record<ChainDataRoute, string> = {
