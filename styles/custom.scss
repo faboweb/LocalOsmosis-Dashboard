@@ -1,0 +1,6 @@
+
+@layer utilities {
+  .hoverEff {
+    @apply cursor-pointer hover:opacity-80 transition-opacity duration-200;
+  }
+}

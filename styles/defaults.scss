@@ -1,0 +1,7 @@
+@layer base {
+	button {
+		&:focus {
+			outline: 0;
+		}
+	}
+}

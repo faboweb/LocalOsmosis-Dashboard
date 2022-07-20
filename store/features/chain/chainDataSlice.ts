@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/store/index';
-import { ChainAssets, ChainData } from '@/utils/data/client';
-import { ChainStatus } from '@/utils/data/server';
+import { ChainAssets, ChainData, ChainStatus } from '@/utils/data/client';
 
 // Define a type for the slice state
 interface ChainDataState {

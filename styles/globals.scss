@@ -1,51 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
 @tailwind base;
-@tailwind utilities;
+@import './fonts.scss';
+@import './defaults.scss';
+
 @tailwind components;
+@import './utils.scss';
+@import './backgrounds.scss';
 
-@layer base {
-	html {
-		@apply text-txtWhite;
-		@apply tracking-tighter;
-		@apply font-mono;
-	}
-	h1 {
-		@apply text-3xl;
-	}
-
-	h2 {
-		@apply text-2xl;
-	}
-
-	h3 {
-		@apply text-xl;
-	}
-
-	h1,
-	h2,
-	h3 {
-		@apply tracking-wider;
-	}
-
-	h4 {
-		@apply text-lg;
-	}
-
-	h5 {
-		@apply text-sm;
-	}
-
-	h4,
-	h5 {
-		@apply tracking-normal;
-	}
-
-	p {
-		@apply text-base;
-	}
-
-	button {
-		&:focus {
-			outline: 0;
-		}
-	}
-}
+@tailwind utilities;
+@import './custom.scss';

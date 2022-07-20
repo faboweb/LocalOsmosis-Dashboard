@@ -1,40 +1,52 @@
-import * as React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FunctionComponent } from 'react';
 
-import { ChainStatusDisplay } from '@/components/common/ChainStatusDisplay';
-import { useAppSelector } from '@/hooks/store';
-import { selectChainStatuses } from '@/store/features/chain/chainDataSlice';
+import cn from 'clsx';
 
-export const Header: React.FunctionComponent = () => {
+export const Header: FunctionComponent = () => {
 	return (
-		<header className="relative z-10 flex h-full w-full justify-end border-b border-primary border-opacity-25 bg-bg py-2 px-4">
-			<StatusGrid />
+		<header className="px-20 lg:mx-auto lg:px-0">
+			<div className="flex h-full w-full items-center justify-between lg:w-lg">
+				<figure>
+					<Image src="/icons/composable/xcvm.svg" alt="xcvm" width={64} height={64} />
+				</figure>
+				<Menu />
+			</div>
 		</header>
 	);
 };
 
-const StatusGrid = () => {
-	const chainStatuses = useAppSelector(selectChainStatuses);
-	const ref = React.useRef<HTMLDivElement>(null);
-	const [hovering, setHovering] = React.useState(false);
-	React.useEffect(() => {
-		if (!ref.current || hovering) return;
-		ref.current.scrollTop = 0;
-	}, [hovering]);
+const Menu: FunctionComponent = () => {
+	const router = useRouter();
+	const path = router.asPath;
 	return (
-		<div className="absolute top-0 right-0 max-w-[300px] scroll-smooth border border-primary border-opacity-40 bg-bgBox p-2 transition-all hover:border-opacity-100 hover:py-5">
-			<div
-				onMouseEnter={() => setHovering(true)}
-				onMouseLeave={() => setHovering(false)}
-				ref={ref}
-				className="group max-h-[62px] overflow-hidden transition-all scrollbar-hide hover:max-h-[600px] hover:overflow-scroll">
-				<ul className="grid w-full auto-rows-auto grid-cols-5 gap-3 transition-all">
-					{chainStatuses.map(chainStatus => (
-						<li key={chainStatus.name}>
-							<ChainStatusDisplay chainStatus={chainStatus} />
-						</li>
-					))}
-				</ul>
-			</div>
-		</div>
+		<nav>
+			<ul className="grid auto-cols-auto grid-flow-col gap-6 lg:gap-12">
+				<li>
+					<MenuButton selected={path === '/' || path === ''} text={'Overview'} route={'/'} />
+				</li>
+				<li>
+					<MenuButton selected={path.startsWith('/relayers')} text={'Relayers'} route={'/relayers'} />
+				</li>
+			</ul>
+		</nav>
+	);
+};
+
+const MenuButton: FunctionComponent<{ text: string; route: string; selected: boolean }> = ({
+	text,
+	route,
+	selected,
+}) => {
+	return (
+		<Link href={route}>
+			<button className={cn('px-8 py-4 group')}>
+				<h6 className={cn(selected ? '' : 'text-white.6 group-hover:text-white transition-all duration-200')}>
+					{text}
+				</h6>
+			</button>
+		</Link>
 	);
 };

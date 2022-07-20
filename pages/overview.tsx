@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
+const Overview: NextPage = () => {
 	return (
 		<div className="wh-full flex-center">
-			<h1>Home area</h1>
+			<h1>Overview area</h1>
 		</div>
 	);
 };
 
-export default Home;
+export default Overview;

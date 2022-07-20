@@ -9,7 +9,7 @@ import { swrConfig } from '@/settings/index';
 import { store } from '@/store/store';
 import '@/styles/globals.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<Provider store={store}>
 			<SWRConfig value={swrConfig.use('default')}>
@@ -19,6 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 			</SWRConfig>
 		</Provider>
 	);
-}
+};
 
 export default MyApp;

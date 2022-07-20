@@ -1,0 +1,27 @@
+@layer base {
+	html {
+		@apply font-sans;
+		@apply text-white;
+		@apply font-[400];
+	}
+
+	h3 {
+		@apply text-[48px] leading-[56px];
+	}
+
+	h4 {
+		@apply text-[32px] leading-[36px] tracking-[0.1px];
+	}
+
+	h5 {
+		@apply text-[24px] leading-[24px] tracking-[0.1px];
+	}
+
+	h6 {
+		@apply text-[20px] font-[500] leading-[24px] tracking-[0.1px];
+	}
+
+	p {
+		@apply text-[18px] leading-[24px] tracking-[0.1px];
+	}
+}

@@ -1,10 +1,10 @@
-import { useRunOnHydrate } from '@/hooks/common/useRunOnHydrate';
+import { useEffect } from 'react';
+
 import { useAppDispatch } from '@/hooks/store';
 import { setBulkChainAssets, setBulkChainData, setChainStatus } from '@/store/features/chain/chainDataSlice';
 import { AppDispatch } from '@/store/store';
-import { ChainAssets, ChainData, getChainAssets } from '@/utils/data/client';
+import { ChainAssets, ChainData, ChainStatus, getChainAssets, getChainStatuses } from '@/utils/data/client';
 import { getChainData } from '@/utils/data/client/chain-data';
-import { ChainStatus, ServerSideProps } from '@/utils/data/server';
 
 async function populateChainAssets(chainStatuses: ChainStatus[], dispatch: AppDispatch) {
 	const promises: Promise<ChainAssets>[] = [];
@@ -25,7 +25,8 @@ async function populateChainData(chainStatuses: ChainStatus[], dispatch: AppDisp
 	await dispatch(setBulkChainData(res));
 }
 
-async function initializeApp(chainStatuses: ChainStatus[], dispatch: AppDispatch) {
+async function initializeApp(dispatch: AppDispatch) {
+	const chainStatuses = await getChainStatuses();
 	const promises: Promise<void>[] = [];
 	promises.push(populateChainAssets(chainStatuses, dispatch));
 	promises.push(populateChainData(chainStatuses, dispatch));
@@ -33,9 +34,10 @@ async function initializeApp(chainStatuses: ChainStatus[], dispatch: AppDispatch
 	dispatch(setChainStatus(chainStatuses));
 }
 
-export function useInitializeApp({ chainStatuses }: ServerSideProps) {
+export function useInitializeApp() {
 	const dispatch = useAppDispatch();
-	useRunOnHydrate(() => {
-		initializeApp(chainStatuses, dispatch);
-	});
+
+	useEffect(() => {
+		initializeApp(dispatch);
+	}, []);
 }

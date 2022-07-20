@@ -52,6 +52,7 @@
 						"officialSorting": true
 					}
 				], // Follow the same ordering as the official plugin `prettier-plugin-tailwindcss`
+				"tailwindcss/no-custom-classname": "off",
 				"@typescript-eslint/no-unused-vars": "off",
 				"unused-imports/no-unused-imports": "error",
 				"unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],

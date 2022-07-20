@@ -4,7 +4,7 @@ import cn from 'clsx';
 
 import { useAppSelector } from '@/hooks/store';
 import { selectChainAssets } from '@/store/features/chain/chainDataSlice';
-import { ChainStatus } from '@/utils/data/server';
+import { ChainStatus } from '@/utils/data/client';
 
 import { Img } from './Img';
 
@@ -14,7 +14,7 @@ export const ChainStatusDisplay: FunctionComponent<{ chainStatus: ChainStatus }>
 	return (
 		<div className="relative w-12">
 			{!chainStatus.available && (
-				<div className="absolute flex h-full w-full items-center justify-center">
+				<div className="wh-full flex-center absolute">
 					<p className="mb-2 text-xs leading-none">❌</p>
 				</div>
 			)}
