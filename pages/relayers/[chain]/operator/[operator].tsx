@@ -5,8 +5,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
 import { RouterLoaded } from '@/components/common';
-import { OperatorBasic } from '@/components/pages/operator';
-import { OperatorGrid } from '@/components/pages/operator/OperatorGrid';
+import { OperatorBasic, OperatorGrid, OperatorSearch } from '@/components/pages/operator';
 import { useFetchValidators } from '@/hooks/data/useFetchValidators';
 import { Validator } from '@/utils/data/client/chain';
 
@@ -59,6 +58,9 @@ const DisplayOperator: FunctionComponent<{ data: Validator }> = ({ data }) => {
 			<OperatorBasic data={data} />
 			<section className="mt-[72px]">
 				<OperatorGrid data={data} />
+			</section>
+			<section className="mt-[72px]">
+				<OperatorSearch />
 			</section>
 		</div>
 	);
