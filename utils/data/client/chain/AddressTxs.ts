@@ -24,7 +24,7 @@ export async function getAddressTxs(chain: string, address: string): Promise<Tx[
 		const res = await axios.get(url);
 		const respData: AddressTxsResponse = res?.data;
 		const ret = respData.txs.map((rawTx: RawTx, index) => refineTx(rawTx, respData.tx_responses[index]));
-		console.log('txs', ret);
+		// console.log('txs', ret);
 		localStorage.set(address, ret, 'account-txs');
 		return ret;
 	} catch (e) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useAppSelector } from '@/hooks/store';
-import { switchAddressPrefix } from '@/utils/blockchain';
+import { switchAddressPrefix } from '@/utils/blockchain/blockchain';
 
 export const useSwitchAddressPrefix = (address: string, chain: string): string | undefined => {
 	const [retAddress, setRetAddress] = useState<string>();

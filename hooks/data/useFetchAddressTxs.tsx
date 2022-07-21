@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -9,28 +9,30 @@ import { getAddressTxs } from '@/utils/data/client/chain/AddressTxs';
 
 export const useFetchAddressTxs = (address: string, chain: string) => {
 	const dispatch = useAppDispatch();
-	const fetching = useRef<boolean>(false);
+	const fetched = useRef<boolean>(false);
+	const [fetching, setFetching] = useState(false);
 	const { chains, addressTxs } = useAppSelector(state => ({
 		chains: selectAvailableChains(state),
 		addressTxs: selectAddressTxs(state, chain, address),
 	}));
 
 	useEffect(() => {
-		if (isEmpty(chains)) return;
+		if (isEmpty(chains) || fetched.current) return;
 		if (!chains.map(chainStatus => chainStatus.name).includes(chain))
 			throw new Error(`Chain ${chain} is not available`);
 		if (isEmpty(addressTxs)) {
 			//  fetch txs
-			if (fetching.current) return;
-			fetching.current = true;
+			if (fetching) return;
+			setFetching(true);
 			getAddressTxs(chain, address)
 				.then(async txs => {
+					fetched.current = true;
 					await dispatch(setValidatorTxs({ address, chain, txs }));
 				})
 				.finally(() => {
-					fetching.current = false;
+					setFetching(false);
 				});
 		}
-	}, [chains, chain, address]);
-	return addressTxs ?? [];
+	}, [chains, chain, address, fetching]);
+	return { addressTxs: addressTxs ?? [], fetching };
 };
