@@ -1,3 +1,19 @@
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins-Regular.ttf');
+	font-style: medium;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins-Medium.ttf');
+	font-style: medium;
+	font-weight: 500;
+	font-display: swap;
+}
+
 @layer base {
 	html {
 		@apply font-sans;
