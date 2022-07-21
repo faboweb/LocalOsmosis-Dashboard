@@ -2,7 +2,7 @@ import store2 from 'store2';
 
 import { CONSTS } from '@/constants/client';
 
-type StoreNamespace = 'chain-assets' | 'chain-data' | 'validators-data' | 'global';
+type StoreNamespace = 'chain-assets' | 'chain' | 'validators' | 'account-txs' | 'global';
 
 // returns boolean for one line error handling
 // ex) if(!localStorage.set('test', 'test')) throw new Error('didn't work')

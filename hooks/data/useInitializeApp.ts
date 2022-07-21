@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { useAppDispatch } from '@/hooks/store';
 import { setBulkChainAssets, setBulkChainData, setChainStatus } from '@/store/features/chain/chainDataSlice';
+import { initAddressTxs } from '@/store/features/chain/validatorDataSlice';
 import { AppDispatch } from '@/store/store';
 import { ChainAssets, ChainData, ChainStatus, getChainAssets, getChainStatuses } from '@/utils/data/client/general';
 import { getChainData } from '@/utils/data/client/general/chain-data';
@@ -32,6 +33,7 @@ async function initializeApp(dispatch: AppDispatch) {
 	promises.push(populateChainData(chainStatuses, dispatch));
 	await Promise.all(promises);
 	dispatch(setChainStatus(chainStatuses));
+	dispatch(initAddressTxs(chainStatuses));
 }
 
 //  initialize app will be called twice in development due to react strict mode

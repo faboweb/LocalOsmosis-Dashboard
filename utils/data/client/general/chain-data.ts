@@ -12,13 +12,13 @@ export interface ChainDataResponse {
 
 export async function getChainData(chain: string): Promise<any> {
 	try {
-		const chainData = localStorage.get(chain, 'chain-data');
+		const chainData = localStorage.get(chain, 'chain');
 		if (chainData) return chainData;
 		const url = urlBuilder.getChainData(chain);
 		const res = await axios.get(url);
 		const data: ChainDataResponse = res?.data;
 		const ret = refineChainData(data.chain);
-		if (!localStorage.set(chain, ret, 'chain-data')) console.warn(`failed to set localStorage for chain[${chain}]`);
+		if (!localStorage.set(chain, ret, 'chain')) console.warn(`failed to set localStorage for chain[${chain}]`);
 		return ret;
 	} catch (ex) {
 		console.warn(ex);

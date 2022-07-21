@@ -5,7 +5,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
 import { RouterLoaded } from '@/components/common';
-import { OperatorBasic, OperatorGrid, OperatorSearch } from '@/components/pages/operator';
+import { OperatorBasic, OperatorGrid, OperatorProps, OperatorSearch, OperatorTxs } from '@/components/pages/operator';
 import { useFetchValidators } from '@/hooks/data/useFetchValidators';
 import { Validator } from '@/utils/data/client/chain';
 
@@ -20,6 +20,7 @@ const OperatorPage: NextPage = () => {
 	);
 };
 
+// TODO : refactor s.t. chain is set in redux store instead of prop drilling
 const Operator = () => {
 	const router = useRouter();
 	const { chain, operator } = router.query as { chain: string; operator: string };
@@ -30,6 +31,7 @@ const Operator = () => {
 	const [data, setData] = useState<Validator>();
 
 	useEffect(() => {
+		if (data) return;
 		if (!operator) {
 			setError('No operator address');
 			return;
@@ -38,7 +40,7 @@ const Operator = () => {
 		const found = validators.find(validator => validator.address === operator);
 		if (found) setData(found);
 		else setError('Operator was not found');
-	}, [validators, operator]);
+	}, [validators, operator, data]);
 	return (
 		<>
 			{error && (
@@ -47,20 +49,25 @@ const Operator = () => {
 				</div>
 			)}
 			{!error && !data && <Loading />}
-			{!error && data && <DisplayOperator data={data} />}
+			{!error && data && chain && <DisplayOperator data={data} chain={chain} />}
 		</>
 	);
 };
 
-const DisplayOperator: FunctionComponent<{ data: Validator }> = ({ data }) => {
+const DisplayOperator: FunctionComponent<OperatorProps> = ({ data, chain }) => {
 	return (
-		<div className="mx-auto lg:w-lg">
-			<OperatorBasic data={data} />
-			<section className="mt-[72px]">
+		<div className="mx-auto flex w-full flex-col gap-[72px] lg:w-lg">
+			<section>
+				<OperatorBasic data={data} chain={chain} />
+			</section>
+			<section>
 				<OperatorGrid data={data} />
 			</section>
-			<section className="mt-[72px]">
+			<section>
 				<OperatorSearch />
+			</section>
+			<section>
+				<OperatorTxs data={data} chain={chain} />
 			</section>
 		</div>
 	);
