@@ -38,10 +38,15 @@ const Operator = () => {
 		if (isEmpty(validators)) return;
 		const found = validators.find(validator => validator.address === operator);
 		if (found) setData(found);
+		else setError('Operator was not found');
 	}, [validators, operator]);
 	return (
 		<>
-			{error && <div className="text-red-500">{error}</div>}
+			{error && (
+				<div className="wh-full mt-20 flex flex-col items-center">
+					<p className="text-negative">{error}</p>
+				</div>
+			)}
 			{!error && !data && <Loading />}
 			{!error && data && <DisplayOperator data={data} />}
 		</>
