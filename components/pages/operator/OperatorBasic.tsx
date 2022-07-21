@@ -31,11 +31,9 @@ export const OperatorBasic: FunctionComponent<{ data: Validator }> = ({ data }) 
 			</div>
 			<div className="mt-8">
 				{data.website ? (
-					<a href={data.website} target="_blank" rel="noopener noreferrer">
-						<div className="hoverEff flex gap-2.5">
-							<h5 className="text-white.6">{cleanUrl(data.website)}</h5>
-							<Image width={24} height={24} className="h-6 w-6" src="/icons/generic/link.svg" />
-						</div>
+					<a className="hoverEff flex w-fit gap-2.5" href={data.website} target="_blank" rel="noopener noreferrer">
+						<h5 className="text-white.6">{cleanUrl(data.website)}</h5>
+						<Image width={24} height={24} className="h-6 w-6" src="/icons/generic/link.svg" />
 					</a>
 				) : (
 					<h5 className="text-white.6">Website missing</h5>
