@@ -96,7 +96,7 @@ const DrawGrid: FunctionComponent<{
 	height: number;
 }> = ({ missed, total, blockClass, gapClass, height }) => {
 	// picks missed blocks randomly
-	const [tooltipBlock, setTooltipBlock] = useState<number>(0);
+	const [tooltipBlock, setTooltipBlock] = useState<number>();
 	const gridBlocksRef = useRef<boolean[]>(
 		(() => {
 			const picked = sampleSize(
