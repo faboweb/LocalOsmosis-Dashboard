@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FunctionComponent, useMemo, useRef } from 'react';
+import { FunctionComponent, useMemo, useRef, useState } from 'react';
 
 import Big from 'big.js';
 import cn from 'clsx';
@@ -41,7 +41,7 @@ const OperatorBlocksHeartbeat: FunctionComponent<{ data: Validator }> = ({ data 
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Participated Blocks</p>
-					<Image data-tip data-for="uptime-info2" width={20} height={20} src="/icons/generic/info.svg" />
+					<Image alt="info" data-tip data-for="uptime-info2" width={20} height={20} src="/icons/generic/info.svg" />
 					<ReactTooltip aria-haspopup="true" id="uptime-info2" place="top" type="dark" effect="solid">
 						<p className="text-center text-xs">
 							Replaced to participated blocks <br /> because uptime is already up there. <br /> Blocks are chosen at
@@ -65,7 +65,7 @@ const OperatorBlocksHeartbeat: FunctionComponent<{ data: Validator }> = ({ data 
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Heartbeats</p>
-					<Image data-tip data-for="heartbeat-info2" width={20} height={20} src="/icons/generic/info.svg" />
+					<Image alt="info" data-tip data-for="heartbeat-info2" width={20} height={20} src="/icons/generic/info.svg" />
 					<ReactTooltip aria-haspopup="true" id="heartbeat-info2" place="top" type="dark" effect="solid">
 						<p>What is a heartbeat? It&apos;s uptime atm</p>
 					</ReactTooltip>
@@ -86,7 +86,8 @@ const OperatorBlocksHeartbeat: FunctionComponent<{ data: Validator }> = ({ data 
 };
 
 // TODO : Get actual block data that the validator failed to pariticipate in
-// Currently just randomly picks blocks if uptime is not 100%
+// TODO : tooltip only works after one has been hovered over. Probably a bug with ReactTooltip but needs researching
+// Currently just randomly picks blocks
 const DrawGrid: FunctionComponent<{
 	missed: number;
 	total: number;
@@ -95,7 +96,8 @@ const DrawGrid: FunctionComponent<{
 	height: number;
 }> = ({ missed, total, blockClass, gapClass, height }) => {
 	// picks missed blocks randomly
-	const ref = useRef<boolean[]>(
+	const [tooltipBlock, setTooltipBlock] = useState<number>(0);
+	const gridBlocksRef = useRef<boolean[]>(
 		(() => {
 			const picked = sampleSize(
 				Array.from({ length: total }, (_, k) => k),
@@ -105,23 +107,23 @@ const DrawGrid: FunctionComponent<{
 		})()
 	);
 	return (
-		<ul className={cn('flex items-center flex-wrap', gapClass)}>
-			{ref.current.map((notMissed, key) => {
-				const blockHeight = height - key;
-				return (
-					<li key={blockHeight}>
-						<div
-							data-tip
-							data-for={`${blockHeight}-block`}
-							className={cn(notMissed ? 'bg-green' : 'bg-negative', blockClass)}
-						/>
-						<ReactTooltip aria-haspopup="true" id={`${blockHeight}-block`} place="top" type="dark" effect="solid">
-							<p>{formatNum(blockHeight)}</p>
-						</ReactTooltip>
-					</li>
-				);
-			})}
-		</ul>
+		<>
+			<ul className={cn('flex items-center flex-wrap', gapClass)}>
+				{gridBlocksRef.current.map((notMissed, key) => {
+					const blockHeight = height - key;
+					return (
+						<li onMouseOver={() => setTooltipBlock(blockHeight)} key={blockHeight}>
+							<div data-tip data-for={`block`} className={cn(notMissed ? 'bg-green' : 'bg-negative', blockClass)} />
+						</li>
+					);
+				})}
+			</ul>
+			{tooltipBlock && (
+				<ReactTooltip aria-haspopup="true" id={`block`} place="top" type="dark" effect="solid">
+					<p>{formatNum(tooltipBlock)}</p>
+				</ReactTooltip>
+			)}
+		</>
 	);
 };
 
@@ -134,7 +136,7 @@ const OperatorStatsGrid: FunctionComponent<{ data: Validator }> = ({ data }) => 
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Uptimes</p>
-					<Image data-tip data-for="uptime-info" width={20} height={20} src="/icons/generic/info.svg" />
+					<Image alt="info" data-tip data-for="uptime-info" width={20} height={20} src="/icons/generic/info.svg" />
 					<ReactTooltip aria-haspopup="true" id="uptime-info" place="top" type="dark" effect="solid">
 						<p>Uptime is a mild concept init?</p>
 					</ReactTooltip>
@@ -145,7 +147,7 @@ const OperatorStatsGrid: FunctionComponent<{ data: Validator }> = ({ data }) => 
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Heartbeats</p>
-					<Image data-tip data-for="heartbeat-info" width={20} height={20} src="/icons/generic/info.svg" />
+					<Image alt="info" data-tip data-for="heartbeat-info" width={20} height={20} src="/icons/generic/info.svg" />
 					<ReactTooltip aria-haspopup="true" id="heartbeat-info" place="top" type="dark" effect="solid">
 						<p>What is a heartbeat? It&apos;s uptime atm</p>
 					</ReactTooltip>
@@ -156,7 +158,7 @@ const OperatorStatsGrid: FunctionComponent<{ data: Validator }> = ({ data }) => 
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Broadcaster</p>
-					<Image data-tip data-for="broadcaster-info" width={20} height={20} src="/icons/generic/info.svg" />
+					<Image alt="info" data-tip data-for="broadcaster-info" width={20} height={20} src="/icons/generic/info.svg" />
 					<ReactTooltip aria-haspopup="true" id="broadcaster-info" place="top" type="dark" effect="solid">
 						<p>uptime - 0~2 applied atm, min value of 0 obviously</p>
 					</ReactTooltip>

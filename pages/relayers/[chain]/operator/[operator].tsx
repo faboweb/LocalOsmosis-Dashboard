@@ -63,7 +63,7 @@ const DisplayOperator: FunctionComponent<{ data: Validator }> = ({ data }) => {
 const Loading = () => {
 	return (
 		<div className="wh-full flex justify-center">
-			<img className="filter-white mt-[15vh] h-20 w-20" src="/icons/generic/loading-spin.svg" />
+			<img alt="spinner" className="filter-white mt-[15vh] h-20 w-20" src="/icons/generic/loading-spin.svg" />
 		</div>
 	);
 };

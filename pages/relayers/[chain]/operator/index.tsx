@@ -40,7 +40,7 @@ const OperatorList = () => {
 				</div>
 			) : (
 				<div className="mt-10">
-					<img className="filter-white h-20 w-20" src="/icons/generic/loading-spin.svg" />
+					<img alt="spinner" className="filter-white h-20 w-20" src="/icons/generic/loading-spin.svg" />
 				</div>
 			)}
 		</>
