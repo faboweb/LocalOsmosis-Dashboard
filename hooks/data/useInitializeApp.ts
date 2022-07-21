@@ -34,6 +34,7 @@ async function initializeApp(dispatch: AppDispatch) {
 	dispatch(setChainStatus(chainStatuses));
 }
 
+//  initialize app will be called twice in development due to react strict mode
 export function useInitializeApp() {
 	const dispatch = useAppDispatch();
 

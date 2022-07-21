@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 export interface RawValidator {
 	moniker: string;
 	identity: string;
@@ -65,7 +67,7 @@ export const refineRawValidator = (rawValidator: RawValidator): Validator => {
 	return {
 		moniker,
 		address,
-		uptime,
+		uptime: new Big(uptime).mul(100).prec(3).toNumber(),
 		missedBlocks,
 		status,
 		jailed,

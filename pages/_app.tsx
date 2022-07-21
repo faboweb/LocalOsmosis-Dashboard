@@ -1,8 +1,9 @@
 import type { AppProps } from 'next/app';
 
 import { Provider } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { AppWrapper } from '@/components/layout/AppWrapper';
+import { AppWrapper } from '@/components/layout';
 import { store } from '@/store/store';
 import '@/styles/globals.scss';
 

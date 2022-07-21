@@ -4,6 +4,7 @@ import { CamelCasedPropertiesDeep, Except, Merge } from 'type-fest';
 
 export interface ChainStatus {
 	name: string;
+	height: number;
 	available: boolean; //	rpc, rest are both available. TODO : add statuses of both and make UI aware of which is available
 }
 

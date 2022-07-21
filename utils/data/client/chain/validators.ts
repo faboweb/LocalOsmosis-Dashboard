@@ -16,6 +16,7 @@ export async function getValidatorsData(chain: string): Promise<Validator[]> {
 		const url = urlBuilder.getValidators(chain);
 		const res = await axios.get(url);
 		const data: ValidatorsResponse = res?.data;
+		console.log('raw validators', data);
 		return data.validators
 			.map((validator: RawValidator) => refineRawValidator(validator))
 			.sort((a, b) => Number(b.tokens) - Number(a.tokens));

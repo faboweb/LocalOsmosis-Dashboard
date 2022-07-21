@@ -31,30 +31,33 @@ interface AllChainStatusResponse {
 	chains: ChainStatusResponse[];
 }
 
-// const chains = [
-// 	'cosmoshub',
-// 	'osmosis',
-// 	'crescent',
-// 	'juno',
-// 	'agoric',
-// 	'stargaze',
-// 	'secret',
-// 	'evmos',
-// 	'axelar',
-// 	'fetchhub',
-// ];
+const chains = [
+	'cosmoshub',
+	'osmosis',
+	'crescent',
+	'juno',
+	'agoric',
+	'stargaze',
+	'secret',
+	'evmos',
+	'axelar',
+	'fetchhub',
+];
 // TODO : append whatever is needed to be populated for every page
 export const getChainStatuses = async (): Promise<ChainStatus[]> => {
 	try {
 		const res = await axios.get(urlBuilder.getBase('status'));
 		const data: AllChainStatusResponse = res?.data;
 		const ret: ChainStatus[] = [];
+		console.log('raw status', data);
 		data.chains.forEach(chainData => {
-			// if (!chains.includes(chainData.name)) return;
+			if (!chains.includes(chainData.name)) return;
 
 			// ignore chains with no height(probably halted), only available if both rpc & rest are available
-			const chainStatus: ChainStatus = { name: chainData.name, available: false };
-			if (chainData.height) chainStatus.available = chainData.rpc.available && chainData.rest.available;
+			const chainStatus: ChainStatus = { name: chainData.name, available: false, height: chainData.height };
+			if (chainData.height) {
+				chainStatus.available = chainData.rpc.available && chainData.rest.available;
+			}
 			ret.push(chainStatus);
 		});
 		return sort(ret).asc('name');
