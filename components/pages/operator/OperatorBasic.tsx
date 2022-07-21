@@ -13,7 +13,12 @@ export const OperatorBasic: FunctionComponent<{ data: Validator }> = ({ data }) 
 		<div>
 			<div className="flex items-center gap-4">
 				<figure className="flex items-center rounded-full border border-accent">
-					<Img className="min-w-12 min-h-12 h-12 w-12 rounded-full bg-white.6" src={data.image} />
+					{data.image && <Img className="min-w-12 min-h-12 h-12 w-12 rounded-full bg-white.6" src={data.image} />}
+					{!data.image && (
+						<figure className="min-w-12 min-h-12 flex-center h-12 w-12 rounded-full bg-white.6">
+							<Img className="min-w-10 min-h-10 h-10 w-10" src="/icons/generic/missing-token.svg" />
+						</figure>
+					)}
 				</figure>
 				<h3>[{data.moniker}]</h3>
 			</div>
