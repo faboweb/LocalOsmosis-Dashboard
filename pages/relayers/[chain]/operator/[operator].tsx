@@ -54,7 +54,6 @@ const Operator = () => {
 };
 
 const DisplayOperator: FunctionComponent<{ data: Validator }> = ({ data }) => {
-	console.log(data);
 	return (
 		<div className="mx-auto lg:w-lg">
 			<OperatorBasic data={data} />

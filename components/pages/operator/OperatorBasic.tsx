@@ -1,14 +1,23 @@
 import Image from 'next/image';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
 import { Img } from '@/components/common';
+import { useGetQuery } from '@/hooks/common/useGetQuery';
+import { useAppSelector } from '@/hooks/store';
+import { switchAddressPrefix } from '@/utils/blockchain';
 import { Validator } from '@/utils/data/client/chain';
 import { cleanUrl } from '@/utils/scripts';
 
 export const OperatorBasic: FunctionComponent<{ data: Validator }> = ({ data }) => {
+	const chain = useGetQuery('chain');
+	const prefix = useAppSelector(state => state.chainData.data[chain]?.bech32Prefix);
+	const chainAddress = useMemo(() => {
+		if (!prefix) return '-';
+		return switchAddressPrefix(data.address, prefix);
+	}, [prefix]);
 	return (
 		<div>
 			<div className="flex items-center gap-4">
@@ -31,6 +40,18 @@ export const OperatorBasic: FunctionComponent<{ data: Validator }> = ({ data }) 
 					}}>
 					<button type="button" className="hoverEff">
 						<Image width={24} height={24} className="h-6 w-6" src="/icons/generic/clipboard.svg" />
+					</button>
+				</CopyToClipboard>
+			</div>
+			<div className="mt-1 flex gap-2.5">
+				<p className="text-[14px] tracking-[-0.5px] text-white.6">{chainAddress}</p>
+				<CopyToClipboard
+					text={chainAddress}
+					onCopy={() => {
+						toast('Copied to clipboard');
+					}}>
+					<button type="button" className="hoverEff flex-center">
+						<Image width={16} height={16} className="h-4 w-4" src="/icons/generic/clipboard.svg" />
 					</button>
 				</CopyToClipboard>
 			</div>

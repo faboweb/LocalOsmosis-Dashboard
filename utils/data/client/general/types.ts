@@ -108,6 +108,7 @@ const pickChainData = [
 	'explorers',
 	'decimals',
 	'image',
+	'bech32Prefix',
 	'params',
 ] as const;
 export type ChainData = Pick<CamelCasedPropertiesDeep<RawChainData>, typeof pickChainData[number]>;

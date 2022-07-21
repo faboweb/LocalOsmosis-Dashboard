@@ -35,6 +35,7 @@ export const cosmosChainData: ChainData = {
 		},
 	],
 	image: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/cosmoshub/images/atom.svg',
+	bech32Prefix: 'cosmos',
 	params: {
 		authz: true,
 		actualBlockTime: 6.768129999637604,
