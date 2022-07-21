@@ -1,7 +1,3 @@
-Boilerplate template repo for generic websites that are aimed to display blockchain data in some form or another.
-
-Probably biased clean-code standards are applied.
-
 ## Getting Started
 
 The obvious stuff
@@ -15,24 +11,26 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and enjoy.
 
 ## The stack
 
-Nextjs + Redux-toolkit + tailwind + scss + SWR
+Nextjs + Redux-toolkit + tailwind + scss
 
-- Nextjs because it's React on steroids for production readiness.
-- Redux-toolkit because it's Redux on steroids for ease of use & standardization
-- Tailwind + scss because it's css on steroids for developers that hate css
-- SWR because it's data fetching on steroids for effective presets for RESTFUL apis
+## Info
 
-## TODO
+- Nextjs + tailwind + scss I think is a no-brainer(maybe Windi but haven't tried it yet)
+- Tried Redux, MobX, React Context, Recoil, Redux toolkit. Found Redux toolkit to be the most Developer Friendly with no known performance issues so used that.
+- Focused on getting quick results ASAP using tailwind to it's fullest. As a result some components are probably possible to extract but did not for time's sake
+- In hindsight using SWR would have been more efficient but the app was ISR at the beginning and didn't think refactoring would be worth the time after switching to CSR.
+- Definitely not as polished as I would be comfortable with atm, but the structure is similar to what I would do for this type of project and should give you a general idea of how I work.
+- Commit naming is terrible, but who does proper conventional commits in the beginning of a project? Personally think it's a waste of time in the early stages of a project
+- Used https://cosmos.directory/ api for ease of development
+- Switched Uptimes to participated blocks as it's something I would probably have suggested to a designer if we were working together
+- Added the validator's image to the page
 
-- CosmJS specifics
-- Add React-toolkit, swr, cosmjs.
-- Add eslint with its specifics
-- Probably add some example code to help kickstart connecting to nodes and showing data in a clean way
-- Responsive design?
+## Known issues
 
-For data streaming SSE or Websockets because it's all we have. Probably.
-
-Treeshaken RxJS is recommended for reactive programming
+- Heartbeat was set to uptime, Broadcaster was set to max(uptime - 0~2, 0)
+- ReactTooltip doesn't work on first hover & tooltips don't disappear on DEV(known issue)
+- Haven't worked on responsiveness for smaller screens
+- No SEO
 
 ## Deploying
 
