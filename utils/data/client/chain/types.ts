@@ -1,7 +1,7 @@
 import Big from 'big.js';
-import camelcaseKeys from 'camelcase-keys';
+import camelcaseKeys, { CamelCaseKeys } from 'camelcase-keys';
+import { TxResponse } from 'cosmjs-types/cosmos/base/abci/v1beta1/abci';
 import { Tx as RawTx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
-import { CamelCasedPropertiesDeep } from 'type-fest';
 
 export interface RawValidator {
 	moniker: string;
@@ -55,10 +55,17 @@ export interface Validator {
 	image: string;
 }
 
-export type Tx = CamelCasedPropertiesDeep<RawTx>;
+export type Tx = CamelCaseKeys<RawTx & TxResponse, true>;
 
-export const refineTx = (tx: RawTx): Tx => {
-	return camelcaseKeys(tx, { deep: true });
+export const refineTx = (tx: RawTx, txResponse: TxResponse): Tx => {
+	const refinedTx: Tx = camelcaseKeys(
+		{
+			...tx,
+			...txResponse,
+		},
+		{ deep: true }
+	);
+	return refinedTx;
 };
 
 export const refineRawValidator = (rawValidator: RawValidator): Validator => {

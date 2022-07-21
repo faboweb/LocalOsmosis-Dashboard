@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TxResponse } from 'cosmjs-types/cosmos/base/abci/v1beta1/abci';
 import { Tx as RawTx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 
 import { urlBuilder } from '@/utils/chains';
@@ -7,6 +8,7 @@ import { localStorage } from '@/utils/data/localStorage';
 
 interface AddressTxsResponse {
 	txs: RawTx[];
+	tx_responses: TxResponse[];
 	pagination: {
 		next_key: string | null; // Always null for some reason
 		total: string;
@@ -21,8 +23,8 @@ export async function getAddressTxs(chain: string, address: string): Promise<Tx[
 		const url = urlBuilder.getAddressTxs(chain, address);
 		const res = await axios.get(url);
 		const respData: AddressTxsResponse = res?.data;
-		console.log('raw txs', respData);
-		const ret = respData.txs.map((rawTx: RawTx) => refineTx(rawTx));
+		const ret = respData.txs.map((rawTx: RawTx, index) => refineTx(rawTx, respData.tx_responses[index]));
+		console.log('txs', ret);
 		localStorage.set(address, ret, 'account-txs');
 		return ret;
 	} catch (e) {

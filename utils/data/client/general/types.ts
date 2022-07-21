@@ -1,4 +1,4 @@
-import camelcaseKeys from 'camelcase-keys';
+import camelcaseKeys, { CamelCaseKeys } from 'camelcase-keys';
 import pick from 'lodash/pick';
 import { CamelCasedPropertiesDeep, Except, Merge } from 'type-fest';
 
@@ -96,8 +96,9 @@ export interface RawChainData {
 }
 
 // replace logo_URIs & base with logo & micro. Camel cased
-export type ChainAsset = CamelCasedPropertiesDeep<
-	Merge<Except<RawChainAsset, 'logo_URIs' | 'base'>, { logo: string; micro: string; native?: string }>
+export type ChainAsset = CamelCaseKeys<
+	Merge<Except<RawChainAsset, 'logo_URIs' | 'base'>, { logo: string; micro: string; native?: string }>,
+	true
 >;
 
 const pickChainData = [
