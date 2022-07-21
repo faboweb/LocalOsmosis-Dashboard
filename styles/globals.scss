@@ -10,10 +10,10 @@
 @import './custom.scss';
 
 @layer base {
-  body {
-    @apply bg-default
-  }
-  html {
-    background-color: #150B0E;
-  }
+	body {
+		@apply bg-default;
+	}
+	html {
+		background-color: #150b0e;
+	}
 }

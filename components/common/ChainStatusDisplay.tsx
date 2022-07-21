@@ -28,7 +28,7 @@ export const ChainStatusDisplay: FunctionComponent<{ chainStatus: ChainStatus }>
 						className={cn({ invert: !primaryAsset?.logo }, 'w-8 h-8 rounded-full')}
 					/>
 				</figure>
-				<p className="mt-1 w-full overflow-hidden truncate text-center text-sm leading-none text-gray-100">
+				<p className="text-gray-100 mt-1 w-full overflow-hidden truncate text-center text-sm leading-none">
 					<span className={cn('text-[10px] tracking-wide')}>{primaryAsset?.symbol || '??'}</span>
 				</p>
 			</div>
