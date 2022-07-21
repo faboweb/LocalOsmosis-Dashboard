@@ -1,11 +1,18 @@
 import { useEffect } from 'react';
 
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
 import { useAppDispatch } from '@/hooks/store';
 import { setBulkChainAssets, setBulkChainData, setChainStatus } from '@/store/features/chain/chainDataSlice';
 import { initAddressTxs } from '@/store/features/chain/validatorDataSlice';
 import { AppDispatch } from '@/store/store';
 import { ChainAssets, ChainData, ChainStatus, getChainAssets, getChainStatuses } from '@/utils/data/client/general';
 import { getChainData } from '@/utils/data/client/general/chain-data';
+
+dayjs.extend(relativeTime);
+dayjs.extend(duration);
 
 async function populateChainAssets(chainStatuses: ChainStatus[], dispatch: AppDispatch) {
 	const promises: Promise<ChainAssets>[] = [];

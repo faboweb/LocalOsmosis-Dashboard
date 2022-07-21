@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import { Img } from '@/components/common';
 import { OperatorProps } from '@/components/pages/operator/types';
-import { useSwitchAddressPrefix } from '@/hooks/utils';
+import { useSwitchAddressPrefix } from '@/hooks/blockchain';
 import { cleanUrl } from '@/utils/scripts';
 
 export const OperatorBasic: FunctionComponent<OperatorProps> = ({ data, chain }) => {

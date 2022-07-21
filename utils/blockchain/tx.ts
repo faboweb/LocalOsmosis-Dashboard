@@ -23,6 +23,11 @@ const getTxType = (tx: Tx): string => {
 	if (!type) return 'Error';
 
 	// TODO : add all the exceptions here
+	switch (type) {
+		case '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward':
+			return 'WithdrawRewards';
+		default:
+	}
 
 	const split = type.split('.');
 	const ret = split[split.length - 1];
