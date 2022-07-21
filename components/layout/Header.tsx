@@ -1,16 +1,17 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 
 import cn from 'clsx';
 
+import { Img } from '@/components/common';
+
 export const Header: FunctionComponent = () => {
 	return (
-		<header className="px-20 lg:mx-auto lg:px-0">
+		<header className="px-5 lg:mx-auto lg:px-0 md:px-20 sm:px-10">
 			<div className="flex h-full w-full items-center justify-between lg:w-lg">
 				<figure>
-					<Image src="/icons/composable/xcvm.svg" alt="xcvm" width={64} height={64} />
+					<Img className="h-12 w-12 md:h-16 md:w-16" src="/icons/composable/xcvm.svg" alt="xcvm" />
 				</figure>
 				<Menu />
 			</div>
@@ -23,7 +24,7 @@ const Menu: FunctionComponent = () => {
 	const path = router.asPath;
 	return (
 		<nav>
-			<ul className="grid auto-cols-auto grid-flow-col gap-6 lg:gap-12">
+			<ul className="grid auto-cols-auto grid-flow-col gap-3 lg:gap-12 md:gap-6">
 				<li>
 					<MenuButton selected={path === '/' || path === ''} text={'Overview'} route={'/'} />
 				</li>
@@ -42,8 +43,12 @@ const MenuButton: FunctionComponent<{ text: string; route: string; selected: boo
 }) => {
 	return (
 		<Link href={route}>
-			<button className={cn('px-8 py-4 group')}>
-				<h6 className={cn(selected ? '' : 'text-white.6 group-hover:text-white transition-all duration-200')}>
+			<button className={cn('px-5 md:px-8 py-3 md:py-4 group')}>
+				<h6
+					className={cn(
+						'text-[14px] md:text-[18px]',
+						selected ? '' : 'text-white.6 group-hover:text-white transition-all duration-200'
+					)}>
 					{text}
 				</h6>
 			</button>

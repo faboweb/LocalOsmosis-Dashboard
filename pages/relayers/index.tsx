@@ -9,7 +9,7 @@ const Relayers: NextPage = () => {
 	return (
 		<div className="wh-full flex flex-col items-center">
 			<h3>Select chain</h3>
-			<ul className="mt-10 flex w-full max-w-lg flex-row flex-wrap gap-y-1 gap-x-3">
+			<ul className="mt-10 flex w-full max-w-lg flex-row flex-wrap gap-y-1 gap-x-3 px-5">
 				{chains.map(chain => (
 					<Link href={`/relayers/${chain.name}`} key={chain.name}>
 						<li className="hoverEff-txt p-2">

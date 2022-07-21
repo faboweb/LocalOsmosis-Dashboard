@@ -29,19 +29,19 @@ export const Nav: FunctionComponent = () => {
 	}, [router.asPath, router.isReady]);
 
 	return (
-		<nav className="my-auto px-20 lg:mx-auto lg:px-0">
+		<nav className="my-auto px-5 lg:mx-auto lg:px-0 md:px-20 sm:px-10">
 			{paths.length > 1 && (
-				<div className="grid h-full w-full auto-cols-max grid-flow-col gap-4 lg:w-lg">
+				<div className="flex h-full w-full flex-wrap items-center gap-1 lg:w-lg md:gap-4">
 					{paths.map((path, index) => (
 						<Fragment key={path.route}>
 							{index !== paths.length - 1 ? (
 								<Link key={path.route} href={path.route}>
 									<a className="hoverEff">
-										<h6 className="text-accent">{path.label}</h6>
+										<p className="text-[14px] text-accent md:text-[18px]">{path.label}</p>
 									</a>
 								</Link>
 							) : (
-								<h6>{path.label}</h6>
+								<h6 className="text-[14px] text-white.6 md:text-[18px]">{path.label}</h6>
 							)}
 							{index !== paths.length - 1 && (
 								<ArrowHeadDown fill={'#ffffff'} fillOpacity={0.6} className="rotate-[270deg]" />

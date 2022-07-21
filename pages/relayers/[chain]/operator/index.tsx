@@ -9,7 +9,7 @@ const Operator: NextPage = () => {
 	return (
 		<div className="wh-full flex flex-col items-center">
 			<h3 className="mt-10">Operator List</h3>
-			<div className="mt-10">
+			<div className="mt-10 px-10">
 				<RouterLoaded>
 					<OperatorList />
 				</RouterLoaded>

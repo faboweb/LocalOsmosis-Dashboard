@@ -28,7 +28,7 @@ export const OperatorTxs: FunctionComponent<OperatorProps> = ({ data, chain }) =
 	const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 	const chainAddress = useSwitchAddressPrefix(data.address, chain);
 	return (
-		<div ref={ref}>
+		<div className="w-full min-w-[1280px]" ref={ref}>
 			<RunWhenOnScreen extraCondition={!!chainAddress} observingRef={ref} fallback={loader}>
 				<table className="w-full">
 					<TxTableHead />

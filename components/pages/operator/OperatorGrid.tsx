@@ -18,14 +18,14 @@ import { formatNum } from '@/utils/scripts';
 const broadcasterValueThresh = 99;
 export const OperatorGrid: FunctionComponent<{ data: Validator }> = ({ data }) => {
 	return (
-		<section className="grid w-full grid-rows-[180px,minmax(412px,1fr)] gap-[72px]">
+		<section className="grid w-full grid-flow-row gap-6 md:grid-rows-[180px,minmax(412px,1fr)] md:gap-[72px]">
 			<OperatorStatsGrid data={data} />
 			<OperatorBlocksHeartbeat data={data} />
 		</section>
 	);
 };
 
-const gridClass = 'p-8 bg-white.02 rounded-2xl flex flex-col gap-4';
+const gridClass = 'p-8 bg-white.02 rounded-2xl flex flex-col items-center md:items-start gap-4';
 const totalBlocks = 100;
 const OperatorBlocksHeartbeat: FunctionComponent<{ data: Validator }> = ({ data }) => {
 	const chain = useGetQuery('chain');
@@ -37,7 +37,7 @@ const OperatorBlocksHeartbeat: FunctionComponent<{ data: Validator }> = ({ data 
 		return found.height;
 	}, [chainStatuses, chain]);
 	return (
-		<div className="grid grid-cols-2 gap-6">
+		<div className="grid grid-cols-1 grid-rows-2 gap-6 md:grid-cols-2 md:grid-rows-1">
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Participated Blocks</p>
@@ -132,7 +132,7 @@ const OperatorStatsGrid: FunctionComponent<{ data: Validator }> = ({ data }) => 
 		Math.max(new Big(data.uptime).minus(new Big(Math.random()).mul(2).toFixed(1)).toNumber(), 0)
 	);
 	return (
-		<div className="grid grid-cols-3 gap-6">
+		<div className="grid grid-rows-[180px,180px,180px] gap-6 md:grid-cols-3 md:grid-rows-1">
 			<div className={gridClass}>
 				<div className="flex items-center gap-2.5">
 					<p className="text-white.6">Uptimes</p>

@@ -12,7 +12,7 @@ import { Validator } from '@/utils/data/client/chain';
 const OperatorPage: NextPage = () => {
 	// TODO : validate general & operator address before rendering
 	return (
-		<div className="h-full px-20 pt-[30px] pb-[90px] lg:mx-auto lg:px-0">
+		<div className="h-full px-5 pt-[30px] pb-[90px] lg:mx-auto lg:px-0 md:px-20 sm:px-10">
 			<RouterLoaded fallback={<Loading />}>
 				<Operator />
 			</RouterLoaded>
@@ -56,7 +56,7 @@ const Operator = () => {
 
 const DisplayOperator: FunctionComponent<OperatorProps> = ({ data, chain }) => {
 	return (
-		<div className="mx-auto flex w-full flex-col gap-[72px] lg:w-lg">
+		<div className="mx-auto flex w-full flex-col gap-6 lg:w-lg md:gap-[72px]">
 			<section>
 				<OperatorBasic data={data} chain={chain} />
 			</section>
@@ -66,7 +66,7 @@ const DisplayOperator: FunctionComponent<OperatorProps> = ({ data, chain }) => {
 			<section>
 				<OperatorSearch />
 			</section>
-			<section>
+			<section className="max-w-[calc(100vw-80px)] overflow-x-auto md:max-w-[calc(100vw-160px)]">
 				<OperatorTxs data={data} chain={chain} />
 			</section>
 		</div>
