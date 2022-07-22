@@ -33,6 +33,7 @@ Nextjs + Redux-toolkit + tailwind + scss
 - Heartbeat was set to uptime, Broadcaster was set to max(uptime - 0~2, 0)
 - ReactTooltip doesn't work on first hover & tooltips don't disappear on DEV(known issue)
 - No SEO
+- tx table is not very responsive. Benchmarking Mintscan's method of displaying txs in mobile would be a nice way to go
 
 ## Deploying
 
