@@ -17,6 +17,7 @@ export const useGetChainDisplay = (chain: string) => {
 	return {
 		// eslint-disable-next-line no-template-curly-in-string
 		getTxPage: (hash: string) => chainData.explorers[0].txPage.replace('${txHash}', hash),
+		getBlockPage: (height: number) => `${chainData.explorers[0].url}/blocks/${height}`,
 		decimals: chainData.decimals,
 		denom: chainAssets.assets[0].symbol,
 	};

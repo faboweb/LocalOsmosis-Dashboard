@@ -122,7 +122,7 @@ const TxTableBody: FunctionComponent<{ txs: Tx[]; fetching: boolean; chain: stri
 const TxRow: FunctionComponent<{ tx: Tx; chain: string }> = ({ tx, chain }) => {
 	const ref = useRef<ParsedTx>(parseTx(tx));
 	const data = ref.current;
-	const { getTxPage, decimals, denom } = useGetChainDisplay(chain);
+	const { getTxPage, getBlockPage, decimals, denom } = useGetChainDisplay(chain);
 	return (
 		<tr className="flex h-[66px] w-full items-center rounded-2xl bg-white.02 py-[21px] px-8 font-[400] text-white.6">
 			<td className={cn(columnWidths[0], 'pr-4')} scope="row">
@@ -147,7 +147,9 @@ const TxRow: FunctionComponent<{ tx: Tx; chain: string }> = ({ tx, chain }) => {
 				<p>{data.result ? 'Success' : 'Fail'}</p>
 			</td>
 			<td className={cn(columnWidths[5], 'pr-4')} scope="row">
-				<p>{data.height}</p>
+				<a href={getBlockPage(data.height)} className="hoverEff" target="_blank" rel="noopener noreferrer">
+					<p className="text-accent">{data.height}</p>
+				</a>
 			</td>
 			<td className={columnWidths[6]} scope="row">
 				<p>{timeAgo.format(data.timestamp * 1000, 'mini-now')} ago</p>
