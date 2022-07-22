@@ -15,6 +15,7 @@ Nextjs + Redux-toolkit + tailwind + scss
 
 ## Info
 
+- Was written in a tight timeframe(less than 3 workdays) so a quite a few corners were cut with a garage / hackathon mindset. Willing to answer any question regarding design / code structure.
 - Nextjs + tailwind + scss I think is a no-brainer(maybe Windi but haven't tried it yet)
 - Tried Redux, MobX, React Context, Recoil, Redux toolkit. Found Redux toolkit to be the most Developer Friendly with no known performance issues so used that.
 - Focused on getting quick results ASAP using tailwind to it's fullest. As a result some components are probably possible to extract but did not for time's sake
