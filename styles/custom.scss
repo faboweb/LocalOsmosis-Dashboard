@@ -8,6 +8,9 @@
 	.filter-white {
 		filter: brightness(0%) invert(100%);
 	}
+	.filter-accent {
+		filter: brightness(0%) invert(35%) sepia(35%) saturate(6390%) hue-rotate(237deg) brightness(101%) contrast(88%);
+	}
 	.rowLoading-animation {
 		background: linear-gradient(115.68deg, #150a0e -16.61%, #1c1115 109.1%);
 		background-size: 800px 100px;

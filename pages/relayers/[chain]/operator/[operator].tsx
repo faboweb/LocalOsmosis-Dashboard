@@ -66,7 +66,7 @@ const DisplayOperator: FunctionComponent<OperatorProps> = ({ data, chain }) => {
 			<section>
 				<OperatorSearch />
 			</section>
-			<section className="max-w-[calc(100vw-80px)] overflow-x-auto md:max-w-[calc(100vw-160px)]">
+			<section>
 				<OperatorTxs data={data} chain={chain} />
 			</section>
 		</div>

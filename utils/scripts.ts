@@ -19,3 +19,10 @@ export const truncateMiddle = (str: string, left: number, right: number): string
 };
 TimeAgo.addDefaultLocale(en);
 export const timeAgo = new TimeAgo('en-US');
+
+// based on 5
+export const getPaginationArray = (total: number, current: number): number[] => {
+	if (total < 5 || current < 3) return Array.from({ length: total }, (_, i) => i + 1);
+	if (current > total - 2) return Array.from({ length: 5 }, (_, i) => i + 1);
+	return Array.from({ length: 5 }, (_, i) => total - 5 + i);
+};

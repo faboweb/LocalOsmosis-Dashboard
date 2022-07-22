@@ -47,7 +47,7 @@ class URLBuilder {
 
 	//  TODO : add pagination and more querying options
 	public getAddressTxs(chain: string, address: string) {
-		return `${this.baseUrls.rest}${chain}/cosmos/tx/v1beta1/txs?events=message.sender%3D%27${address}%27&pagination.limit=10&order_by=ORDER_BY_ASC`;
+		return `${this.baseUrls.rest}${chain}/cosmos/tx/v1beta1/txs?events=message.sender%3D%27${address}%27&pagination.limit=10&order_by=ORDER_BY_DESC`;
 	}
 
 	// TODO : rpc related stuff
