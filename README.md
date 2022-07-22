@@ -31,7 +31,6 @@ Nextjs + Redux-toolkit + tailwind + scss
 - Does say relayers, but it's validators atm. I couldn't find easily accessible relayer public data
 - Heartbeat was set to uptime, Broadcaster was set to max(uptime - 0~2, 0)
 - ReactTooltip doesn't work on first hover & tooltips don't disappear on DEV(known issue)
-- Haven't worked on responsiveness for smaller screens
 - No SEO
 
 ## Deploying

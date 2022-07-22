@@ -3,6 +3,7 @@ import { FunctionComponent, useRef } from 'react';
 
 import cn from 'clsx';
 
+import { Img } from '@/components/common';
 import { DisplayAmount } from '@/components/common/DisplayAmount';
 import { RunWhenOnScreen } from '@/components/common/RunWhenOnScreen';
 import { OperatorProps } from '@/components/pages/operator/types';
@@ -118,8 +119,11 @@ const TableLoading = () => {
 
 const TableEmpty = () => {
 	return (
-		<tr className="flex w-full items-center justify-center">
-			<td className="flex flex-col items-center">No data</td>
+		<tr className="flex w-full max-w-[calc(100vw-80px)] items-center justify-center md:max-w-[calc(100vw-160px)]">
+			<td className="mt-4 flex flex-col items-center gap-2">
+				<Img className="filter-white h-12 w-12" alt="missing" src="/icons/generic/missing.svg" />
+				<p>No data</p>
+			</td>
 		</tr>
 	);
 };
