@@ -3,13 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"prepare": "husky install",
-		"precommit": "lint-staged",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"prettify": "prettier --write './**/*.{js,jsx,ts,tsx,scss,md,json}' --config ./.prettierrc",
-		"lint": "next lint -- --fix"
+		"prettify": "prettier --write './**/*.{js,jsx,ts,tsx,scss,md,json}' --config ./.prettierrc"
 	},
 	"dependencies": {
 		"@cosmjs/amino": "^0.28.7",
@@ -69,7 +66,6 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-tailwindcss": "^3.5.2",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"husky": "^8.0.1",
 		"lint-staged": "^13.0.2",
 		"postcss": "^8.4.14",
 		"prettier": "^2.7.1",
