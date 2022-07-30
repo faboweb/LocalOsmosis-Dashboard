@@ -14,13 +14,13 @@ import { setupGovExtension } from '@cosmjs/launchpad';
 // mempool txs
 
 const unconfirmedTxs = async () => {
-    const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
-    return res.result.txs;
+	const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
+	return res.result.txs;
 };
 
 const subscribeToConsensusState = async () => {
-    const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
-    return res.result.txs;
+	const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
+	return res.result.txs;
 };
 
 const connectors = new Promise(async resolve => {

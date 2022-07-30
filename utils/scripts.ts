@@ -17,6 +17,7 @@ export const truncateMiddle = (str: string, left: number, right: number): string
 	if (str.length <= left + right) return str;
 	return `${str.slice(0, left)}...${str.slice(str.length - right, str.length)}`;
 };
+
 TimeAgo.addDefaultLocale(en);
 export const timeAgo = new TimeAgo('en-US');
 
