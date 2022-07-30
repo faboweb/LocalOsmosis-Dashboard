@@ -4,9 +4,9 @@ function convertWsArgs(args = {}) {
 		if (typeof value === `number`) {
 			args[key] = String(value);
 		} else if (Buffer.isBuffer(value)) {
-			args[key] = `0x` + value.toString(`hex`);
+			args[key] = `0x${value.toString(`hex`)}`;
 		} else if (value instanceof Uint8Array) {
-			args[key] = `0x` + Buffer.from(value).toString(`hex`);
+			args[key] = `0x${Buffer.from(value).toString(`hex`)}`;
 		}
 	}
 	return args;
@@ -107,12 +107,9 @@ class Client {
 	}
 }
 
-const client = new Promise(resolve => {
-	const client = new Tendermint(
-		process.env.LOCAL_NETWORK_ID,
-		process.env.RPC_ENDPOINT?.replace(/http/, 'ws') + '/websocket'
-	);
-	return client;
+const tendermintClient = new Promise(resolve => {
+	const client = new Client(process.env.LOCAL_CHAIN_ID, `${process.env.RPC_ENDPOINT.replace(/http/g, 'ws')}/websocket`);
+	resolve(client);
 });
 
 const eventTypes = [
@@ -153,4 +150,4 @@ const subscribeToEvents = (client, callback) => {
 };
 
 export { subscribeToEvents };
-export default client;
+export default tendermintClient;
