@@ -79,7 +79,7 @@ export const ChartDisplay = () => {
 	return (
 		<div className="w-full h-full mx-auto">
 			<DialogWrapper isOpen={!!openBlock} setIsOpen={setOpenBlock}>
-				{openBlock && <DisplayJson data={openBlock} />}
+				{openBlock && <DisplayJson data={openBlock} collapseStringsAfterLength={20} />}
 			</DialogWrapper>
 			<HighchartsReact containerProps={{ style: { height: '100%' } }} highcharts={Highcharts} options={options} />
 		</div>

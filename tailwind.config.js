@@ -29,10 +29,10 @@ module.exports = {
 			fontFamily: {
 				sans: ['Poppins', 'ui-sans'],
 			},
-		},
-		borderRadius: {
-			'2xlinset': '0.938rem',
-			'2xl': '1rem',
+			borderRadius: {
+				'2xlinset': '0.938rem',
+				'2xl': '1rem',
+			},
 		},
 	},
 	// eslint-disable-next-line global-require
