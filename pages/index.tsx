@@ -1,10 +1,32 @@
 import type { NextPage } from 'next';
 
+import { Card } from '@/components/common';
+import { Consensus, Contracts, Events, NodeConfig, Txs } from '@/components/pages/home';
+
 const Home: NextPage = () => {
 	return (
-		<div className="wh-full flex flex-col items-center">
-			<h3>Overview area</h3>
-			<h5 className="mt-10 px-10 text-center leading-tight">Nothing here yet - select Relayers tab above</h5>
+		<div className="h-full w-full">
+			<div className="grid h-full w-full grid-rows-2 gap-5 px-3">
+				<div className="grid h-full w-full grid-cols-3 gap-5">
+					<Card>
+						<Txs />
+					</Card>
+					<Card>
+						<NodeConfig />
+					</Card>
+					<Card>
+						<Consensus />
+					</Card>
+				</div>
+				<div className="grid h-full w-full grid-cols-2 gap-5">
+					<Card>
+						<Events />
+					</Card>
+					<Card>
+						<Contracts />
+					</Card>
+				</div>
+			</div>
 		</div>
 	);
 };
