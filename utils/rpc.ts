@@ -18,11 +18,6 @@ const unconfirmedTxs = async () => {
 	return res.result.txs;
 };
 
-const subscribeToConsensusState = async () => {
-	const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
-	return res.result.txs;
-};
-
 const connectors = new Promise(async resolve => {
     const rpcEndpoint = process.env.RPC_ENDPOINT;
     const tmClient = await Tendermint34Client.connect(rpcEndpoint);
@@ -73,7 +68,6 @@ const connectors = new Promise(async resolve => {
         subscribeToBlocks,
         blocks,
         unconfirmedTxs,
-        subscribeToConsensusState,
         nodeInfo,
         proposals,
         uploadedContracts,
