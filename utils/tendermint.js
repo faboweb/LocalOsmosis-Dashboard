@@ -107,13 +107,10 @@ class Client {
 	}
 }
 
-const tendermintClient = new Promise(resolve => {
-	const client = new Client(
-		process.env.NEXT_PUBLIC_LOCAL_CHAIN_ID,
-		`${process.env.NEXT_PUBLIC_RPC_ENDPOINT.replace(/http/g, 'ws')}/websocket`
-	);
-	resolve(client);
-});
+const tendermintClient = new Client(
+	process.env.NEXT_PUBLIC_LOCAL_CHAIN_ID,
+	`${process.env.NEXT_PUBLIC_RPC_ENDPOINT.replace(/http/g, 'ws')}/websocket`
+);
 
 const eventTypes = [
 	'NewBlock',
@@ -136,9 +133,9 @@ const eventTypes = [
 	'Vote',
 ];
 
-const subscribeToEvents = (client, callback) => {
+const subscribeToEvents = callback => {
 	eventTypes.forEach(eventType => {
-		client.subscribe(
+		tendermintClient.subscribe(
 			{
 				query: `tm.event='${eventType}'`,
 			},
@@ -153,4 +150,3 @@ const subscribeToEvents = (client, callback) => {
 };
 
 export { subscribeToEvents };
-export default tendermintClient;
