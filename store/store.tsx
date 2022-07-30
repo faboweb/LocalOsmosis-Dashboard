@@ -31,8 +31,10 @@ export interface NodeConfig {
 export type AppContext = {
 	state: Context;
 	pushTx: (tx: any) => void;
+	pushTxs: (txs: any[]) => void;
 	setNodeConfig: (nodeConfig: NodeConfig) => void;
 	pushBlocks: (block: any) => void;
+	setBlocks: (blocks: any[]) => void;
 	pushProposals: (proposals: any) => void;
 	pushEvents: (event: any) => void;
 	pushContracts: (contracts: any) => void;
@@ -43,8 +45,10 @@ export const StoreProvider: FunctionComponent<{ children: ReactNode }> = ({ chil
 	const methods = useMemo(
 		() => ({
 			pushTx: (tx: any) => setState(prev => ({ ...prev, txs: [...prev.txs, tx] })),
+			pushTxs: (tx: any[]) => setState(prev => ({ ...prev, txs: [...prev.txs, ...tx] })),
 			setNodeConfig: (nodeConfig: NodeConfig) => setState(prev => ({ ...prev, nodeConfig })),
-			pushBlocks: (block: any) => setState(prev => ({ ...prev, consensus: [...prev.blocks, block] })),
+			pushBlocks: (block: any) => setState(prev => ({ ...prev, blocks: [...prev.blocks, block] })),
+			setBlocks: (blocks: any) => setState(prev => ({ ...prev, blocks })),
 			pushProposals: (proposals: any) => setState(prev => ({ ...prev, proposals: [...prev.proposals, ...proposals] })),
 			pushEvents: (event: any) =>
 				setState(prev => {

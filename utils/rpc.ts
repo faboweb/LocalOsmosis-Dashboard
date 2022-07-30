@@ -44,14 +44,16 @@ const connectors = new Promise(async resolve => {
 			)
 		);
 
-        const contractAddressesDict = {}
-        contractAddresses.forEach(addr => contractAddressesDict[addr] = 1)
+		const contractAddressesDict = {};
+		contractAddresses.forEach(addr => (contractAddressesDict[addr] = 1));
 		return [].concat(
-			...(await Promise.all(
-				Object.keys(contractAddressesDict) // dedupe
-					.slice(0, 50) // Extend, to reduce requests
-					.map(async addr => cosmwasmClient.getContract(addr).catch(err => null))
-			)).filter(x => !!x)
+			...(
+				await Promise.all(
+					Object.keys(contractAddressesDict) // dedupe
+						.slice(0, 50) // Extend , to reduce requests
+						.map(async addr => cosmwasmClient.getContract(addr).catch(err => null))
+				)
+			).filter(x => !!x)
 		);
 	};
 
@@ -70,18 +72,20 @@ const connectors = new Promise(async resolve => {
 
 	const blocks = async () => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
-		return (await tmClient.blockSearch({
-			query: `block.height > ${latestBlockHeight - 100}`,
-		})).blocks;
+		return (
+			await tmClient.blockSearch({
+				query: `block.height > ${latestBlockHeight - 100}`,
+			})
+		).blocks;
 	};
 
 	const txs = async () => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
 		const _txs = await tmClient.txSearchAll({
-            query: 'tx.height>' + (latestBlockHeight-1000),
-            per_page: 50
-        })
-        return _txs
+			query: 'tx.height>' + (latestBlockHeight - 3000),
+			per_page: 50,
+		});
+		return _txs;
 	};
 
 	resolve({
@@ -94,7 +98,7 @@ const connectors = new Promise(async resolve => {
 		proposals,
 		uploadedContracts,
 		runningContracts,
-        txs
+		txs,
 	});
 });
 

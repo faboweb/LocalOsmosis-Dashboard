@@ -1,69 +1,37 @@
 import { useEffect } from 'react';
 
-import {
-	CategoryScale,
-	Chart as ChartJS,
-	Legend,
-	LinearScale,
-	LineElement,
-	PointElement,
-	TimeSeriesScale,
-	Title,
-	Tooltip,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 import { useStore } from '@/hooks/common/useStore';
 import api from '@/utils/rpc';
 
-ChartJS.register(CategoryScale, TimeSeriesScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
 export const ChartDisplay = () => {
 	const {
 		state: { blocks },
-		pushBlocks,
 	} = useStore();
 
-	useEffect(() => {
-		api.then(data => data.blocks().then(pushBlocks));
-	}, []);
+	const data = blocks
+		? blocks.slice(0, blocks.length - 2).map((block, index) => ({
+				y: blocks[index + 1].time - block.time,
+				x: Number(block.height),
+		  }))
+		: [];
 
-	const data = blocks.slice(0, blocks.length - 2).map((block, index) => ({
-		y: new Date(blocks[index + 1].block.header.time).getTime() - new Date(block.block.header.time).getTime(),
-		x: Number(block.block.header.height),
-	}));
+	const options = {
+		title: {
+			text: 'Block Times',
+		},
+		series: [
+			{
+				data,
+			},
+		],
+	};
 
 	return (
-		<Line
-			options={{
-				scales: {
-					x: {
-						type: 'linear',
-						display: false,
-					},
-					y: {
-						display: false,
-					},
-				},
-				plugins: {
-					legend: {
-						display: false,
-					},
-					title: {
-						display: false,
-					},
-				},
-			}}
-			data={{
-				datasets: [
-					{
-						data,
-						borderColor: 'white',
-					},
-				],
-			}}
-			height={50}
-			responsive={true}
-		/>
+		<div className="w-[80vw] mx-auto">
+			<HighchartsReact containerProps={{ style: { height: '100%' } }} highcharts={Highcharts} options={options} />
+		</div>
 	);
 };

@@ -1,10 +1,12 @@
 import { FunctionComponent, useCallback, useState } from 'react';
 
 import copy from 'copy-to-clipboard';
+import isEmpty from 'lodash/isEmpty';
 import { toast } from 'react-toastify';
 
 import { DialogWrapper } from '@/components/common/DialogWrapper';
 import { DisplayJson } from '@/components/common/DisplayJson';
+import { Loader } from '@/components/common/Loader';
 import { useStore } from '@/hooks/common/useStore';
 import { formatNum, truncateMiddle } from '@/utils/scripts';
 
@@ -41,11 +43,15 @@ export const Txs: FunctionComponent = () => {
 				className="text-center hover:text-accent cursor-pointer">
 				Txs
 			</p>
-			<ul className="overflow-y-auto">
-				{data.map((tx: Tx) => (
-					<DisplayTx onClick={() => onClick(tx)} key={tx.hash} data={tx} />
-				))}
-			</ul>
+			{isEmpty(data) ? (
+				<Loader />
+			) : (
+				<ul className="overflow-y-auto">
+					{data.map((tx: Tx) => (
+						<DisplayTx onClick={() => onClick(tx)} key={tx.hash} data={tx} />
+					))}
+				</ul>
+			)}
 		</div>
 	);
 };

@@ -19,7 +19,17 @@ async function initializeApp(store: AppContext) {
 	if (runOnce) return;
 	runOnce = true;
 	const connector = await connectors;
-	const { tmClient, osmoClient, unconfirmedTxs, nodeInfo, proposals, uploadedContracts, runningContracts } = connector;
+	const {
+		tmClient,
+		osmoClient,
+		unconfirmedTxs,
+		nodeInfo,
+		proposals,
+		uploadedContracts,
+		runningContracts,
+		txs,
+		blocks,
+	} = connector;
 	// subscribeToBlocks(async event => {
 	// 	console.log(event);
 	// });
@@ -43,6 +53,9 @@ async function initializeApp(store: AppContext) {
 	});
 	runningContracts().then(value => {
 		store.pushContracts(value);
+	});
+	blocks().then(value => {
+		store.setBlocks(value.map(refineNewBlockData));
 	});
 }
 
