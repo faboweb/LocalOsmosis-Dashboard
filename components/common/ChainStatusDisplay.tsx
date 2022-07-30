@@ -21,7 +21,8 @@ export const ChainStatusDisplay: FunctionComponent<{ chainStatus: ChainStatus }>
 			<div
 				className={cn('w-full h-full flex flex-col items-center justify-between', {
 					'opacity-25': !chainStatus.available,
-				})}>
+				})}
+			>
 				<figure className={cn('w-9 h-9 rounded-full flex items-center justify-center bg-gray-200')}>
 					<Img
 						src={primaryAsset?.logo || '/icons/generic/not-found.svg'}
