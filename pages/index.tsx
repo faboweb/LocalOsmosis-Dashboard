@@ -7,15 +7,15 @@ const Home: NextPage = () => {
 	return (
 		<div className="h-full w-full">
 			<div className="grid h-full w-full grid-rows-2 gap-5 px-3">
-				<div className="grid h-full w-full grid-cols-3 gap-5">
+				<div className="grid h-full w-full grid-cols-[2fr,2fr,1fr] gap-5">
 					<Card>
 						<Txs />
 					</Card>
 					<Card>
-						<NodeConfig />
+						<Consensus />
 					</Card>
 					<Card>
-						<Consensus />
+						<NodeConfig />
 					</Card>
 				</div>
 				<div className="grid h-full w-full grid-cols-2 gap-5">

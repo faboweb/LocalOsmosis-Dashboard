@@ -1,11 +1,11 @@
-import { createContext, FunctionComponent, ReactNode, useState } from 'react';
+import { createContext, FunctionComponent, ReactNode, useMemo, useState } from 'react';
 
 import { Context } from './types';
 
 const initContext = (): Context => ({
 	txs: [],
 	nodeConfig: {},
-	consensus: [],
+	blocks: [],
 	proposals: [],
 	events: {},
 	contracts: [],
@@ -13,31 +13,52 @@ const initContext = (): Context => ({
 
 export const StoreContext = createContext<AppContext>(null!);
 
-type AppContext = {
+export interface NodeConfig {
+	channels: string;
+	id: number[];
+	listenAddr: string;
+	moniker: string;
+	network: string;
+	other: Record<string, string>;
+	protocolVersion: {
+		app: number;
+		block: number;
+		p2p: number;
+	};
+	version: string;
+}
+
+export type AppContext = {
 	state: Context;
 	pushTx: (tx: any) => void;
-	setNodeConfig: (nodeConfig: any) => void;
-	pushConsensus: (consensus: any) => void;
+	setNodeConfig: (nodeConfig: NodeConfig) => void;
+	pushBlocks: (block: any) => void;
 	pushProposals: (proposals: any) => void;
-	pushEvent: (events: any) => void;
+	pushEvents: (event: any) => void;
 	pushContracts: (contracts: any) => void;
 };
 
 export const StoreProvider: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 	const [state, setState] = useState(initContext());
+	const methods = useMemo(
+		() => ({
+			pushTx: (tx: any) => setState(prev => ({ ...prev, txs: [...prev.txs, tx] })),
+			setNodeConfig: (nodeConfig: NodeConfig) => setState(prev => ({ ...prev, nodeConfig })),
+			pushBlocks: (block: any) => setState(prev => ({ ...prev, consensus: [...prev.blocks, block] })),
+			pushProposals: (proposals: any) => setState(prev => ({ ...prev, proposals: [...prev.proposals, ...proposals] })),
+			pushEvents: (event: any) =>
+				setState(prev => {
+					const { events } = prev;
+					events[event.type] = [...events[event.type], event];
+					return { ...prev, events };
+				}),
+			pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts: [...prev.contracts, ...contracts] })),
+		}),
+		[]
+	);
 	const value = {
 		state,
-		pushTx: (tx: any) => setState(prev => ({ ...prev, txs: [...prev.txs, tx] })),
-		setNodeConfig: (nodeConfig: any) => setState(prev => ({ ...prev, nodeConfig })),
-		pushConsensus: (consensus: any) => setState(prev => ({ ...prev, consensus: [...prev.consensus, consensus] })),
-		pushProposals: (proposals: any) => setState(prev => ({ ...prev, proposals: [...prev.proposals, ...proposals] })),
-		pushEvent: (event: any) =>
-			setState(prev => {
-				const { events } = prev;
-				events[event.type] = [...events[event.type], event];
-				return { ...prev, events };
-			}),
-		pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts: [...prev.contracts, ...contracts] })),
+		...methods,
 	};
 	return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
