@@ -6,32 +6,27 @@ import { Consensus, Contracts, Events, NodeConfig, Txs } from '@/components/page
 
 const Home: NextPage = () => {
 	return (
-		<div className="h-full w-full">
-			<div className="grid h-full w-full grid-rows-[200px,1fr,1fr] gap-5 px-3">
-				<div className="grid h-full w-full grid-cols-2 gap-5">
-					<Card>
-						<ChartDisplay />
-					</Card>
-					<Card>
-						<NodeConfig />
-					</Card>
-				</div>
-				<div className="grid h-full w-full grid-cols-2 gap-5">
-					<Card>
-						<Txs />
-					</Card>
-					<Card>
-						<Contracts />
-					</Card>
-				</div>
-				<div className="grid h-full w-full grid-cols-2 gap-5">
-					<Card>
-						<Events />
-					</Card>
-					<Card>
-						<Consensus />
-					</Card>
-				</div>
+		<div className="grid h-full w-full grid-rows-[200px,1fr,1fr] gap-5">
+			<div className="grid h-full w-full grid-cols-2 gap-5">
+				<Card>
+					<ChartDisplay />
+				</Card>
+				<Card>
+					<NodeConfig />
+				</Card>
+			</div>
+			<div className="grid h-full w-full grid-cols-2 gap-5">
+				<Card>
+					<Txs />
+				</Card>
+				<Card>
+					<Contracts />
+				</Card>
+			</div>
+			<div className="w-full h-full">
+				<Card>
+					<Events />
+				</Card>
 			</div>
 		</div>
 	);

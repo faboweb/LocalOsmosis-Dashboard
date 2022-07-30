@@ -9,10 +9,10 @@ import { useInitializeApp } from '@/hooks/data/useInitializeApp';
 export const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 	useInitializeApp();
 	return (
-		<div className="min-h-[100vh] w-[100vw]">
-			<div className="relative grid grid-rows-[120px,1fr]">
-				<Header />
-				<div className="min-h-[calc(100vh-120px)] w-full">{children}</div>
+		<div className="min-h-[100vh] min-w-[100vw] relative">
+			<Header />
+			<div className="p-4">
+				<div className="min-h-[calc(100vh-64px)] min-w-[calc(100vw-32px)]">{children}</div>
 			</div>
 			<ToastContainer
 				position="top-right"

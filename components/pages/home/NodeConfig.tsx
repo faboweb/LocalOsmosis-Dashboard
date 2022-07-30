@@ -40,13 +40,13 @@ const DisplayData: FunctionComponent<{ data: NodeConfigType }> = ({ data }) => {
 const Item: FunctionComponent<{ label: string; content: any }> = ({ label, content }) => {
 	return (
 		<div className="w-full">
-			<p className="text-left text-[12px] leading-none tracking-tighter overflow-auto text-white.6">{label}</p>
+			<p className="text-center text-[14px] leading-none tracking-tighter overflow-auto text-white.6">{label}</p>
 			<p
 				onClick={() => {
 					copy(content.toString());
 					toast('Copied to clipboard', { autoClose: 250 });
 				}}
-				className="text-left text-[14px] leading-none tracking-tighter truncate hover:text-accent cursor-pointer">
+				className="text-center text-[16px] leading-none tracking-tighter truncate hover:text-accent cursor-pointer">
 				{content.toString()}
 			</p>
 		</div>
