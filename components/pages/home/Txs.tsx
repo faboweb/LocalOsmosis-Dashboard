@@ -44,7 +44,10 @@ export const Txs: FunctionComponent = () => {
 				Txs
 			</p>
 			{isEmpty(data) ? (
-				<Loader />
+				<div className="m-auto">
+					<small>Listening...</small>
+					<Loader />
+				</div>
 			) : (
 				<ul className="overflow-y-auto">
 					{data.map((tx: Tx) => (

@@ -15,41 +15,32 @@ export const ChartDisplay = () => {
 		state: { blocks },
 	} = useStore();
 
-	const data = blocks
+	const dataTime = blocks
 		? blocks.slice(0, blocks.length - 2).map((block, index) => ({
 				y: blocks[index + 1].time - block.time,
 				x: Number(block.height),
 		  }))
 		: [];
 
+	const dataTxs = blocks
+		? blocks.slice(0, blocks.length - 2).map(block => ({
+				y: block.txs.length,
+				x: Number(block.height),
+		  }))
+		: [];
+
 	const options = {
-		title: {
-			text: 'Block Times',
-		},
-		chart: {
-			backgroundColor: 'rgba(255,255,255,1)',
-		},
-		xAxis: {
-			title: '',
-			gridLineWidth: 0,
-			minPadding: 0,
-			maxPadding: 0,
-		},
-		legend: {
-			enabled: false,
-		},
-		yAxis: {
-			title: '',
-			gridLineWidth: 0,
-			minPadding: 0,
-			maxPadding: 0,
-		},
 		series: [
 			{
-				name: 'Block Time',
-				data,
+				data: dataTime,
+			},
+			{
+				data: dataTxs,
+				yAxis: 1,
+				type: 'column',
 			},
 		],
+		legend: { enabled: false },
 		plotOptions: {
 			series: {
 				point: {
@@ -61,18 +52,33 @@ export const ChartDisplay = () => {
 				},
 			},
 		},
-		tooltip: {
-			enabled: true,
-			backgroundColor: '#ffffff',
-			borderColor: '#e6e6e6',
-			borderRadius: 10,
-			borderWidth: 1,
-			headerShape: 'callout',
-			shadow: true,
-			useHTML: true,
+		chart: {
+			backgroundColor: 'rgba(255,255,255,1)',
 		},
-		credits: {
-			enabled: false,
+		xAxis: {
+			labels: { enabled: false },
+			title: {
+				text: null,
+			},
+		},
+		yAxis: [
+			{
+				opposite: true,
+				labels: { enabled: false },
+				title: {
+					text: null,
+				},
+			},
+			{
+				gridLineWidth: 0,
+				labels: { enabled: false },
+				title: {
+					text: null,
+				},
+			},
+		],
+		title: {
+			text: '',
 		},
 	};
 
