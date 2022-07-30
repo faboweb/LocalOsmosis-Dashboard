@@ -38,7 +38,7 @@ export const Contracts: FunctionComponent = () => {
 		setSiblings((await (await api).contractSiblings(data.codeId)).filter(x => x !== data.address));
 	}, []);
 	return (
-		<div className="max-h-[calc(50vh-90px)] flex flex-col gap-2 justify-center overflow-scroll h-full">
+		<div className="max-h-[calc(50vh-90px)] min-h-[352px] flex flex-col gap-2 justify-center overflow-scroll h-full">
 			<DialogWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
 				<div className="w-full h-full items-center justify-center mb-8">
 					<h4 className="mb-4 mt-4">Contract</h4>
