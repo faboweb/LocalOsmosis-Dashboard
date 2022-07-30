@@ -7,7 +7,6 @@ const initContext = (): Context => ({
 	nodeConfig: {},
 	blocks: [],
 	proposals: [],
-	events: {},
 	contracts: [],
 });
 
@@ -42,26 +41,31 @@ export type AppContext = {
 
 export const StoreProvider: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 	const [state, setState] = useState(initContext());
+	const [events, setEvents] = useState({});
 	const methods = useMemo(
 		() => ({
 			pushTx: (tx: any) => setState(prev => ({ ...prev, txs: [...prev.txs, tx] })),
 			pushTxs: (tx: any[]) => setState(prev => ({ ...prev, txs: [...prev.txs, ...tx] })),
 			setNodeConfig: (nodeConfig: NodeConfig) => setState(prev => ({ ...prev, nodeConfig })),
-			pushBlocks: (block: any) => setState(prev => ({ ...prev, blocks: [...prev.blocks, block] })),
+			pushBlocks: (block: any) =>
+				setState(prev => ({ ...prev, blocks: [...prev.blocks.slice(1, prev.blocks.length), block] })),
 			setBlocks: (blocks: any) => setState(prev => ({ ...prev, blocks })),
 			pushProposals: (proposals: any) => setState(prev => ({ ...prev, proposals: [...prev.proposals, ...proposals] })),
-			pushEvents: (event: any) =>
-				setState(prev => {
-					const { events } = prev;
-					events[event.type] = [...events[event.type], event];
-					return { ...prev, events };
+			pushEvents: (eventsObj: any) =>
+				setEvents((prevEvents: any) => {
+					Object.keys(eventsObj.ret).forEach(key => {
+						const item = { ...eventsObj.ret[key], height: eventsObj.height };
+						if (prevEvents[key]) prevEvents[key].push(item);
+						else prevEvents[key] = [item];
+					});
+					return prevEvents;
 				}),
 			pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts })),
 		}),
 		[]
 	);
 	const value = {
-		state,
+		state: { ...state, events },
 		...methods,
 	};
 	return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

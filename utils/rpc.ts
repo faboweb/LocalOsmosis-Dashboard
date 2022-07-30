@@ -82,7 +82,7 @@ const connectors = new Promise(async resolve => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
 		return (
 			await tmClient.blockSearch({
-				query: `block.height > ${latestBlockHeight - 100}`,
+				query: `block.height > ${latestBlockHeight - 120}`,
 			})
 		).blocks;
 	};

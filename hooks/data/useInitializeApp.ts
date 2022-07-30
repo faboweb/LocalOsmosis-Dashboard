@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useStore } from '@/hooks/common/useStore';
 import { AppContext, NodeConfig } from '@/store/store';
 import { refineNewBlockData } from '@/utils/data/client/chain/block';
+import { parseEvent } from '@/utils/data/client/chain/event';
 import { refineTxData } from '@/utils/data/client/chain/tx';
 import connectors from '@/utils/rpc';
 import { subscribeToEvents } from '@/utils/tendermint';
@@ -38,6 +39,8 @@ async function initializeApp(store: AppContext) {
 		store.setNodeConfig(value);
 	});
 	subscribeToEvents((event: any) => {
+		console.log('event', event);
+		store.pushEvents(parseEvent(event));
 		switch (event.type) {
 			case 'NewBlock':
 				store.pushBlocks(refineNewBlockData(event));
@@ -45,10 +48,8 @@ async function initializeApp(store: AppContext) {
 			case 'Tx':
 				store.pushTx(refineTxData(event));
 				break;
-			case 'NewBlockHeader':
-				break;
 			default:
-				store.pushEvents(event);
+				break;
 		}
 	});
 	runningContracts().then(value => {

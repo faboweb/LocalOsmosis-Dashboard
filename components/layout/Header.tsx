@@ -4,12 +4,10 @@ import { Img } from '@/components/common';
 
 export const Header: FunctionComponent = () => {
 	return (
-		<header className="px-10">
-			<div className="flex h-full w-full items-center justify-between">
-				<figure>
-					<Img className="h-12" src="/icons/osmosis/osmosis-logo.svg" alt="xcvm" />
-				</figure>
-			</div>
+		<header className="px-5 absolute z-50 bottom-[30px] right-[30px]">
+			<figure className="opacity-25">
+				<Img className="h-8" src="/icons/osmosis/osmosis-logo.svg" alt="xcvm" />
+			</figure>
 		</header>
 	);
 };

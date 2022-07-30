@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -9,7 +9,7 @@ import { useStore } from '@/hooks/common/useStore';
 import api from '@/utils/rpc';
 
 export const ChartDisplay = () => {
-	const [openBlock, setOpenBlock] = useState(null);
+	const [openBlock, setOpenBlock] = useState<boolean>(false);
 
 	const {
 		state: { blocks },
@@ -52,6 +52,9 @@ export const ChartDisplay = () => {
 				},
 			},
 		},
+		chart: {
+			backgroundColor: 'rgba(255,255,255,1)',
+		},
 		xAxis: {
 			labels: { enabled: false },
 			title: {
@@ -80,7 +83,7 @@ export const ChartDisplay = () => {
 	};
 
 	return (
-		<div className="w-[80vw] mx-auto">
+		<div className="w-full h-full mx-auto">
 			<DialogWrapper isOpen={!!openBlock} setIsOpen={setOpenBlock}>
 				{openBlock && <DisplayJson data={openBlock} />}
 			</DialogWrapper>
