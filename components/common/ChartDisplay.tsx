@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-import { useStore } from '@/hooks/common/useStore';
-import api from '@/utils/rpc';
-
 import { DialogWrapper } from '@/components/common/DialogWrapper';
 import { DisplayJson } from '@/components/common/DisplayJson';
+import { useStore } from '@/hooks/common/useStore';
+import api from '@/utils/rpc';
 
 export const ChartDisplay = () => {
 	const [openBlock, setOpenBlock] = useState(null);
@@ -16,33 +15,68 @@ export const ChartDisplay = () => {
 		state: { blocks },
 	} = useStore();
 
-	const data = blocks
+	const dataTime = blocks
 		? blocks.slice(0, blocks.length - 2).map((block, index) => ({
 				y: blocks[index + 1].time - block.time,
 				x: Number(block.height),
 		  }))
 		: [];
 
+	const dataTxs = blocks
+		? blocks.slice(0, blocks.length - 2).map(block => ({
+				y: block.txs.length,
+				x: Number(block.height),
+		  }))
+		: [];
+
 	const options = {
-		title: {
-			text: 'Block Times',
-		},
 		series: [
 			{
-				data,
+				data: dataTime,
+			},
+			{
+				data: dataTxs,
+				yAxis: 1,
+				type: 'column',
 			},
 		],
+		legend: { enabled: false },
 		plotOptions: {
 			series: {
-			  point: {
-				events: {
-				  async click() {
-					setOpenBlock(await (await api).block(this.x))
-				  }
-				}
-			  }
-			}
-		  },
+				point: {
+					events: {
+						async click() {
+							setOpenBlock(await (await api).block(this.x));
+						},
+					},
+				},
+			},
+		},
+		xAxis: {
+			labels: { enabled: false },
+			title: {
+				text: null,
+			},
+		},
+		yAxis: [
+			{
+				opposite: true,
+				labels: { enabled: false },
+				title: {
+					text: null,
+				},
+			},
+			{
+				gridLineWidth: 0,
+				labels: { enabled: false },
+				title: {
+					text: null,
+				},
+			},
+		],
+		title: {
+			text: '',
+		},
 	};
 
 	return (
