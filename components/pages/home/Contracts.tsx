@@ -9,6 +9,7 @@ import { DisplayJson } from '@/components/common/DisplayJson';
 import { usePagination } from '@/hooks/common/usePagination';
 import { useStore } from '@/hooks/common/useStore';
 import { getPaginationArray, truncateMiddle } from '@/utils/scripts';
+import api from '../../../utils/rpc';
 
 export const Contracts: FunctionComponent = () => {
 	const {
@@ -16,16 +17,30 @@ export const Contracts: FunctionComponent = () => {
 	} = useStore();
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalData, setModalData] = useState();
+	const [history, setHistory] = useState([]);
+	const [siblings, setSiblings] = useState([]);
 
-	const onClick = useCallback((data: any) => {
+	const onClick = useCallback(async (data: any) => {
 		setModalData(data);
+		setHistory([]);
+		setSiblings([]);
 		setIsOpen(prevState => !prevState);
+		setHistory(await (await api).contractHistory(data.address));
+		setSiblings((await (await api).contractSiblings(data.codeId)).filter(x => x.address !== data.address));
 	}, []);
 	return (
 		<div className="max-h-[calc(50vh-90px)] flex flex-col gap-2 justify-center overflow-scroll h-full">
 			<DialogWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-				<div className="w-full h-full flex items-center justify-center">
+				<div className="w-full h-full flex items-center justify-center flex flex-col">
+					<h4>Contract</h4>
 					<DisplayJson data={modalData} collapseStringsAfterLength={100} />
+					<h4>History</h4>
+					<DisplayJson data={history} collapseStringsAfterLength={100} />
+					<h4>Siblings</h4>
+					{
+						siblings.length > 0 ? <DisplayJson data={siblings} collapseStringsAfterLength={100} /> :
+						<span>No Siblings</span>
+					}
 				</div>
 			</DialogWrapper>
 			<p className="text-center">Contracts</p>
