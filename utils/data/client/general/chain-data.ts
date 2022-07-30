@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { cosmosChainData } from '@/constants/defaults';
-import { urlBuilder } from '@/utils/chains';
+import { urlBuilder } from '@/utils/api';
 import { RawChainData, refineChainData } from '@/utils/data/client/general/types';
 import { localStorage } from '@/utils/data/localStorage';
 

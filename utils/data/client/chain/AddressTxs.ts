@@ -2,7 +2,7 @@ import axios from 'axios';
 import { TxResponse } from 'cosmjs-types/cosmos/base/abci/v1beta1/abci';
 import { Tx as RawTx } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 
-import { urlBuilder } from '@/utils/chains';
+import { urlBuilder } from '@/utils/api';
 import { refineTx, Tx } from '@/utils/data/client/chain/types';
 import { localStorage } from '@/utils/data/localStorage';
 

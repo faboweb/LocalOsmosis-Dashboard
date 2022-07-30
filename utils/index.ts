@@ -1,4 +1,4 @@
 // export * from './types';
-export * from './chains';
+export * from './api';
 export * from './blockchain/blockchain';
 export * from './scripts';

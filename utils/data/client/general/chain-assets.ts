@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 import { cosmosAsset } from '@/constants/defaults';
-import { urlBuilder } from '@/utils/chains';
+import { urlBuilder } from '@/utils/api';
 import { ChainAssets, RawChainAsset, refineChainAsset } from '@/utils/data/client/general/types';
 import { localStorage } from '@/utils/data/localStorage';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { urlBuilder } from '@/utils/chains';
+import { urlBuilder } from '@/utils/api';
 import { RawValidator, refineRawValidator, Validator } from '@/utils/data/client/chain/types';
 
 interface ValidatorsResponse {
