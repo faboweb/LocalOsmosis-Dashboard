@@ -70,7 +70,9 @@ const Home: NextPage = () => {
 					data: data,
 					borderColor: 'white',
 				}]
-			}} />
+			}} 
+			height={50}
+			/>
 			<div className="grid h-full w-full grid-rows-2 gap-5 px-3">
 				<div className="grid h-full w-full grid-cols-3 gap-5">
 					<Card>
