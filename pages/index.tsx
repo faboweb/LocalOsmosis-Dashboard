@@ -50,12 +50,25 @@ const Home: NextPage = () => {
 					scales: {
 						x: {
 							type: 'linear',
+							display: false
+						},
+						y: {
+							display: false
+						}
+					},
+					plugins: {
+						legend: {
+							display: false
+						},
+						title: {
+							display: false
 						}
 					}
 				}} 
 				data={{
 				datasets: [{
 					data: data,
+					borderColor: 'white',
 				}]
 			}} />
 			<div className="grid h-full w-full grid-rows-2 gap-5 px-3">
