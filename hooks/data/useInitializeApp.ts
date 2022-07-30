@@ -14,7 +14,10 @@ import { subscribeToEvents } from '@/utils/tendermint';
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
+let runOnce = false;
 async function initializeApp(store: AppContext) {
+	if (runOnce) return;
+	runOnce = true;
 	const connector = await connectors;
 	const { tmClient, osmoClient, unconfirmedTxs, nodeInfo, proposals, uploadedContracts, runningContracts } = connector;
 	// subscribeToBlocks(async event => {
@@ -37,6 +40,9 @@ async function initializeApp(store: AppContext) {
 			default:
 				store.pushEvents(event);
 		}
+	});
+	runningContracts().then(value => {
+		store.pushContracts(value);
 	});
 }
 
