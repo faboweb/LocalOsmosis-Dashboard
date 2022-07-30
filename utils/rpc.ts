@@ -1,5 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
+import { osmosis } from 'osmojs';
 
 // node config
 // last block timestamp
@@ -40,7 +41,7 @@ const connectors = new Promise(async resolve => {
 	const blocks = async () => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
 		return tmClient.blockSearch({
-			query: `block.height > ${latestBlockHeight - 100}`,
+			query: `block.height > ${latestBlockHeight - 20}`,
 		});
 	};
 	resolve({
