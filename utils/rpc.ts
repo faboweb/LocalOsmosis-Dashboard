@@ -1,5 +1,8 @@
+import { osmosis } from 'osmojs';
+import { CosmWasmClient } from "cosmwasm";
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
+import { setupGovExtension } from '@cosmjs/launchpad';
 
 // node config
 // last block timestamp
@@ -21,13 +24,33 @@ const subscribeToConsensusState = async () => {
 };
 
 const connectors = new Promise(async resolve => {
-    const tmClient = await Tendermint34Client.connect(process.env.RPC_ENDPOINT);
+    const rpcEndpoint = process.env.RPC_ENDPOINT;
+    const tmClient = await Tendermint34Client.connect(rpcEndpoint);
     const { QueryClientImpl } = osmosis.gamm.v1beta1;
-    const basicClient = new QueryClient(tmClient);
+    const basicClient = QueryClient.withExtensions(tmClient, setupGovExtension);
     const rpc = createProtobufRpcClient(basicClient);
     const osmoClient = new QueryClientImpl(rpc);
+    const cosmwasmClient = await CosmWasmClient.connect(rpcEndpoint);
 
-    // const { nodeInfo, sync_info } = (await tmClient.status())
+    const proposals = async () => {
+        return basicClient.gov.proposals()
+    }
+
+    const uploadedContracts = async () => {
+        const codes = await cosmwasmClient.getCodes()
+        return codes
+    }
+
+    const runningContracts = async () => {
+        const codes = await cosmwasmClient.getCodes()
+        const contractAddresses = [].concat(await Promise.all(codes.map(async code => cosmwasmClient.getContracts(code))))
+        return await Promise.all(contractAddresses.map(async addr => cosmwasmClient.getContract(addr)))
+    }
+
+    const nodeInfo = async () => {
+        const { nodeInfo, sync_info } = (await tmClient.status())
+        return nodeInfo
+    }
 
     const subscribeToBlocks = async (callback) => {
         tmClient.subscribeNewBlock().addListener({
@@ -49,6 +72,12 @@ const connectors = new Promise(async resolve => {
         osmoClient,
         subscribeToBlocks,
         blocks,
+        unconfirmedTxs,
+        subscribeToConsensusState,
+        nodeInfo,
+        proposals,
+        uploadedContracts,
+        runningContracts
     });
 });
 
