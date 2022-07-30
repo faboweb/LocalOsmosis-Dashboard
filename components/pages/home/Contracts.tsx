@@ -18,7 +18,7 @@ export const Contracts: FunctionComponent = () => {
 		update();
 	}, []);
 	return (
-		<div className="flex h-full w-full items-center justify-center overflow-scroll flex flex-col">
+		<div className="flex h-full w-full items-center justify-center overflow-scroll flex flex-col max-h-50">
 			<p>Contracts Area</p>
 			<button onClick={() => update()}>Update</button>
 			<ul>

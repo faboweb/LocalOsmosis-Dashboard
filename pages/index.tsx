@@ -1,11 +1,63 @@
 import type { NextPage } from 'next';
+import { Line } from 'react-chartjs-2';
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend,
+	TimeSeriesScale
+  } from 'chart.js'
+  import { Chart } from 'react-chartjs-2'
+  
+  ChartJS.register(
+	CategoryScale,
+	TimeSeriesScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend
+  )
 
 import { Card } from '@/components/common';
 import { Consensus, Contracts, Events, NodeConfig, Txs } from '@/components/pages/home';
+import { useEffect } from 'react';
+import api from '@/utils/rpc';
+import { useStore } from '@/hooks/common/useStore';
 
 const Home: NextPage = () => {
+	const {
+		state: { blocks },
+		pushBlocks,
+	} = useStore();
+
+	useEffect(() => {
+		api.then(api => api.blocks().then(pushBlocks))
+	}, []);
+
+	const data = blocks.slice(0, blocks.length - 2).map((block, index) => ({
+		y: new Date(blocks[index+1].block.header.time).getTime() - new Date(block.block.header.time).getTime(),
+		x: Number(block.block.header.height)
+	}))
 	return (
 		<div className="h-full w-full">
+			<Line options={{
+					scales: {
+						x: {
+							type: 'linear',
+						}
+					}
+				}} 
+				data={{
+				datasets: [{
+					data: data,
+				}]
+			}} />
 			<div className="grid h-full w-full grid-rows-2 gap-5 px-3">
 				<div className="grid h-full w-full grid-cols-3 gap-5">
 					<Card>

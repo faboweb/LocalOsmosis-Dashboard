@@ -8,6 +8,7 @@ const initContext = (): Context => ({
 	consensus: [],
 	proposals: [],
 	events: {},
+	blocks: [],
 	contracts: [],
 });
 
@@ -20,6 +21,7 @@ type AppContext = {
 	pushConsensus: (consensus: any) => void;
 	pushProposals: (proposals: any) => void;
 	pushEvent: (events: any) => void;
+	pushBlocks: (blocks: any) => void;
 	pushContracts: (contracts: any) => void;
 };
 
@@ -37,6 +39,7 @@ export const StoreProvider: FunctionComponent<{ children: ReactNode }> = ({ chil
 				events[event.type] = [...events[event.type], event];
 				return { ...prev, events };
 			}),
+		pushBlocks: (blocks: any) => setState(prev => ({ ...prev, blocks })),
 		pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts: [...contracts] })),
 	};
 	return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
