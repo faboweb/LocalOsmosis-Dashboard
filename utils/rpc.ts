@@ -75,6 +75,15 @@ const connectors = new Promise(async resolve => {
 		});
 	};
 
+	const txs = async () => {
+		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
+		const _txs = await tmClient.txSearchAll({
+            query: 'tx.height>' + (latestBlockHeight-1000),
+            per_page: 50
+        })
+        return _txs
+	};
+
 	resolve({
 		tmClient,
 		osmoClient,
@@ -85,6 +94,7 @@ const connectors = new Promise(async resolve => {
 		proposals,
 		uploadedContracts,
 		runningContracts,
+        txs
 	});
 });
 
