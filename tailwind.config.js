@@ -12,6 +12,7 @@ module.exports = {
 		},
 		colors: {
 			white: '#ffffff',
+			card: '#2D2755',
 			accent: '#745BF0',
 			'white.6': 'rgba(255,255,255,0.6)',
 			'white.02': 'rgba(255,255,255,0.02)',
@@ -19,6 +20,7 @@ module.exports = {
 			green: '#26FF63',
 			negative: '#E93323',
 			transparent: 'transparent',
+			enabledGold: '#C4A46A',
 		},
 		extend: {
 			width: {
@@ -27,6 +29,10 @@ module.exports = {
 			fontFamily: {
 				sans: ['Poppins', 'ui-sans'],
 			},
+		},
+		borderRadius: {
+			'2xlinset': '0.938rem',
+			'2xl': '1rem',
 		},
 	},
 	// eslint-disable-next-line global-require
