@@ -15,7 +15,7 @@ export const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({ childre
 				<div className="min-h-[calc(100vh-120px)] w-full">{children}</div>
 			</div>
 			<ToastContainer
-				position="top-center"
+				position="top-right"
 				autoClose={2000}
 				newestOnTop
 				hideProgressBar
