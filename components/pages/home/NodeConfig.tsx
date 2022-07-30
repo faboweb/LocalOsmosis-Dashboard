@@ -30,14 +30,8 @@ const DisplayData: FunctionComponent<{ data: NodeConfigType }> = ({ data }) => {
 				className="text-center hover:text-accent cursor-pointer">
 				Node Info
 			</p>
-			<Item label="id" content={data.id} />
 			<Item label="moniker" content={data.moniker} />
-			<Item label="channels" content={data.channels} />
 			<Item label="network" content={data.network} />
-			<Item label="listenAddr" content={data.listenAddr} />
-			<Item label="p2p" content={data.protocolVersion.p2p} />
-			<Item label="app" content={data.protocolVersion.app} />
-			<Item label="block" content={data.protocolVersion.block} />
 			<Item label="version" content={data.version} />
 		</div>
 	);
