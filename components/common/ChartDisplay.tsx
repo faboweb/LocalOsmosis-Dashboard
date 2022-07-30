@@ -1,13 +1,17 @@
-import { useCallback, useEffect } from 'react';
+import { useState } from 'react';
 
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import isEmpty from 'lodash/isEmpty';
 
 import { useStore } from '@/hooks/common/useStore';
 import api from '@/utils/rpc';
 
+import { DialogWrapper } from '@/components/common/DialogWrapper';
+import { DisplayJson } from '@/components/common/DisplayJson';
+
 export const ChartDisplay = () => {
+	const [openBlock, setOpenBlock] = useState(null);
+
 	const {
 		state: { blocks },
 	} = useStore();
@@ -47,6 +51,17 @@ export const ChartDisplay = () => {
 				data,
 			},
 		],
+		plotOptions: {
+			series: {
+			  point: {
+				events: {
+				  async click() {
+					setOpenBlock(await (await api).block(this.x))
+				  }
+				}
+			  }
+			}
+	  },
 		tooltip: {
 			enabled: true,
 			backgroundColor: '#ffffff',
@@ -63,10 +78,10 @@ export const ChartDisplay = () => {
 	};
 
 	return (
-		<div className="w-full h-full mx-auto">
-			{!isEmpty(data) && (
-				<HighchartsReact containerProps={{ style: { height: '100%' } }} highcharts={Highcharts} options={options} />
-			)}
-		</div>
+		<div className="w-[80vw] mx-auto">
+			<DialogWrapper isOpen={!!openBlock} setIsOpen={setOpenBlock}>
+				{openBlock && <DisplayJson data={openBlock} />}
+			</DialogWrapper>
+			<HighchartsReact containerProps={{ style: { height: '100%' } }} highcharts={Highcharts} options={options} />
 	);
 };

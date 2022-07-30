@@ -36,6 +36,16 @@ const connectors = new Promise(async resolve => {
 		return codes;
 	};
 
+	const contractHistory = async (addr) => {
+		const history = await cosmwasmClient.getContractCodeHistory(addr);
+		return history;
+	};
+
+	const contractSiblings = async (codeId) => {
+		const contracts = await cosmwasmClient.getContracts(codeId);
+		return contracts;
+	};
+
 	const runningContracts = async () => {
 		const codes = await cosmwasmClient.getCodes();
 		const contractAddresses = [].concat(
@@ -62,12 +72,10 @@ const connectors = new Promise(async resolve => {
 		return nodeInfo;
 	};
 
-	const subscribeToBlocks = async callback => {
-		tmClient.subscribeNewBlock().addListener({
-			next: i => callback,
-			error: err => console.error(err),
-			complete: () => console.log('completed'),
-		});
+	const block = async (height) => {
+		return (
+			await tmClient.block(height)
+		).block;
 	};
 
 	const blocks = async () => {
@@ -91,13 +99,15 @@ const connectors = new Promise(async resolve => {
 	resolve({
 		tmClient,
 		osmoClient,
-		subscribeToBlocks,
+		block,
 		blocks,
 		unconfirmedTxs,
 		nodeInfo,
 		proposals,
 		uploadedContracts,
 		runningContracts,
+		contractHistory,
+		contractSiblings,
 		txs,
 	});
 });

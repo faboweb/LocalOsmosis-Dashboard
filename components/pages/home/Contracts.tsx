@@ -9,6 +9,7 @@ import { DisplayJson } from '@/components/common/DisplayJson';
 import { usePagination } from '@/hooks/common/usePagination';
 import { useStore } from '@/hooks/common/useStore';
 import { getPaginationArray, truncateMiddle } from '@/utils/scripts';
+import api from '../../../utils/rpc';
 
 export const Contracts: FunctionComponent = () => {
 	const {
@@ -16,16 +17,39 @@ export const Contracts: FunctionComponent = () => {
 	} = useStore();
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalData, setModalData] = useState();
+	const [history, setHistory] = useState([]);
+	const [siblings, setSiblings] = useState([]);
 
-	const onClick = useCallback((data: any) => {
+	const loadSibling = async addr => {
+		setHistory([]);
+		setSiblings([]);
+		const sibling = contracts.find(({ address }) => addr === address);
+		setModalData(sibling);
+		setHistory(await (await api).contractHistory(sibling.address));
+		setSiblings((await (await api).contractSiblings(sibling.codeId)).filter(x => x !== sibling.address));
+	}
+	const onClick = useCallback(async (data: any) => {
 		setModalData(data);
+		setHistory([]);
+		setSiblings([]);
 		setIsOpen(prevState => !prevState);
+		setHistory(await (await api).contractHistory(data.address));
+		setSiblings((await (await api).contractSiblings(data.codeId)).filter(x => x !== data.address));
 	}, []);
 	return (
 		<div className="max-h-[calc(50vh-90px)] flex flex-col gap-2 justify-center overflow-scroll h-full">
 			<DialogWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-				<div className="w-full h-full flex items-center justify-center">
+				<div className="w-full h-full items-center justify-center mb-8">
+					<h4 className='mb-4 mt-4'>Contract</h4>
 					<DisplayJson data={modalData} collapseStringsAfterLength={100} />
+					<h4 className='mb-4 mt-4'>History</h4>
+					<DisplayJson data={history} collapseStringsAfterLength={100} />
+					<h4 className='mb-4 mt-4'>Siblings</h4>
+					{
+						siblings.length > 0
+							? <div className='flex flex-col mb-4'>{siblings.map(addr => <a key={addr} onClick={() => loadSibling(addr)}>{addr}</a>)}</div>
+							: <span>No Siblings</span>
+					}
 				</div>
 			</DialogWrapper>
 			<p className="text-center">Contracts</p>
