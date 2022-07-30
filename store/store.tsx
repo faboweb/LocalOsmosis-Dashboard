@@ -37,7 +37,7 @@ export const StoreProvider: FunctionComponent<{ children: ReactNode }> = ({ chil
 				events[event.type] = [...events[event.type], event];
 				return { ...prev, events };
 			}),
-		pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts: [...prev.contracts, ...contracts] })),
+		pushContracts: (contracts: any) => setState(prev => ({ ...prev, contracts: [...contracts] })),
 	};
 	return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };

@@ -1,8 +1,8 @@
-import { osmosis } from 'osmojs';
-import { CosmWasmClient } from "cosmwasm";
+import { setupGovExtension } from '@cosmjs/launchpad';
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
-import { setupGovExtension } from '@cosmjs/launchpad';
+import { CosmWasmClient } from 'cosmwasm';
+import { osmosis } from 'osmojs';
 
 // node config
 // last block timestamp
@@ -19,60 +19,73 @@ const unconfirmedTxs = async () => {
 };
 
 const connectors = new Promise(async resolve => {
-    const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
-    const tmClient = await Tendermint34Client.connect(rpcEndpoint);
-    const { QueryClientImpl } = osmosis.gamm.v1beta1;
-    const basicClient = QueryClient.withExtensions(tmClient, setupGovExtension);
-    const rpc = createProtobufRpcClient(basicClient);
-    const osmoClient = new QueryClientImpl(rpc);
-    const cosmwasmClient = await CosmWasmClient.connect(rpcEndpoint);
+	const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
+	const tmClient = await Tendermint34Client.connect(rpcEndpoint);
+	const { QueryClientImpl } = osmosis.gamm.v1beta1;
+	const basicClient = QueryClient.withExtensions(tmClient, setupGovExtension);
+	const rpc = createProtobufRpcClient(basicClient);
+	const osmoClient = new QueryClientImpl(rpc);
+	const cosmwasmClient = await CosmWasmClient.connect(rpcEndpoint);
 
-    const proposals = async () => {
-        return basicClient.gov.proposals()
-    }
+	const proposals = async () => {
+		return basicClient.gov.proposals();
+	};
 
-    const uploadedContracts = async () => {
-        const codes = await cosmwasmClient.getCodes()
-        return codes
-    }
+	const uploadedContracts = async () => {
+		const codes = await cosmwasmClient.getCodes();
+		return codes;
+	};
 
-    const runningContracts = async () => {
-        const codes = await cosmwasmClient.getCodes()
-        const contractAddresses = [].concat(await Promise.all(codes.map(async code => cosmwasmClient.getContracts(code))))
-        return await Promise.all(contractAddresses.map(async addr => cosmwasmClient.getContract(addr)))
-    }
+	const runningContracts = async () => {
+		const codes = await cosmwasmClient.getCodes();
+		const contractAddresses = [].concat(
+			...(await Promise.all(codes.map(async code => cosmwasmClient.getContracts(code.id).catch(err => null)))).filter(
+				x => !!x
+			)
+		);
 
-    const nodeInfo = async () => {
-        const { nodeInfo, sync_info } = (await tmClient.status())
-        return nodeInfo
-    }
+        const contractAddressesDict = {}
+        contractAddresses.forEach(addr => contractAddressesDict[addr] = 1)
+		return [].concat(
+			...(await Promise.all(
+				Object.keys(contractAddressesDict) // dedupe
+					.slice(0, 50) // Extend, to reduce requests
+					.map(async addr => cosmwasmClient.getContract(addr).catch(err => null))
+			)).filter(x => !!x)
+		);
+	};
 
-    const subscribeToBlocks = async (callback) => {
-        tmClient.subscribeNewBlock().addListener({
-            next: i => callback,
-            error: err => console.error(err),
-            complete: () => console.log('completed'),
-        });
-    };
+	const nodeInfo = async () => {
+		const { nodeInfo, sync_info } = await tmClient.status();
+		return nodeInfo;
+	};
 
-    const blocks = async () => {
-        const { latestBlockHeight } = (await tmClient.status()).syncInfo;
-        return tmClient.blockSearch({
-            query: `block.height > ${latestBlockHeight - 100}`,
-        });
-    };
+	const subscribeToBlocks = async callback => {
+		tmClient.subscribeNewBlock().addListener({
+			next: i => callback,
+			error: err => console.error(err),
+			complete: () => console.log('completed'),
+		});
+	};
 
-    resolve({
-        tmClient,
-        osmoClient,
-        subscribeToBlocks,
-        blocks,
-        unconfirmedTxs,
-        nodeInfo,
-        proposals,
-        uploadedContracts,
-        runningContracts
-    });
+	const blocks = async () => {
+		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
+		return tmClient.blockSearch({
+			query: `block.height > ${latestBlockHeight - 100}`,
+		});
+	};
+
+	resolve({
+		tmClient,
+		osmoClient,
+		subscribeToBlocks,
+		blocks,
+		unconfirmedTxs,
+		nodeInfo,
+		proposals,
+		uploadedContracts,
+		runningContracts,
+	});
 });
 
 export default connectors;
