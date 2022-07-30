@@ -72,6 +72,12 @@ const connectors = new Promise(async resolve => {
 		return nodeInfo;
 	};
 
+	const block = async (height) => {
+		return (
+			await tmClient.block(height)
+		).block;
+	};
+
 	const blocks = async () => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
 		return (
@@ -93,6 +99,7 @@ const connectors = new Promise(async resolve => {
 	resolve({
 		tmClient,
 		osmoClient,
+		block,
 		blocks,
 		unconfirmedTxs,
 		nodeInfo,
