@@ -14,12 +14,12 @@ import { setupGovExtension } from '@cosmjs/launchpad';
 // mempool txs
 
 const unconfirmedTxs = async () => {
-	const res = await fetch(`${process.env.RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
+	const res = await fetch(`${process.env.NEXT_PUBLIC_RPC_ENDPOINT}/unconfirmed_txs`).then(res => res.json());
 	return res.result.txs;
 };
 
 const connectors = new Promise(async resolve => {
-    const rpcEndpoint = process.env.RPC_ENDPOINT;
+    const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
     const tmClient = await Tendermint34Client.connect(rpcEndpoint);
     const { QueryClientImpl } = osmosis.gamm.v1beta1;
     const basicClient = QueryClient.withExtensions(tmClient, setupGovExtension);

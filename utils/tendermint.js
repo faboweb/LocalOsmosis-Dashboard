@@ -108,7 +108,10 @@ class Client {
 }
 
 const tendermintClient = new Promise(resolve => {
-	const client = new Client(process.env.LOCAL_CHAIN_ID, `${process.env.RPC_ENDPOINT.replace(/http/g, 'ws')}/websocket`);
+	const client = new Client(
+		process.env.NEXT_PUBLIC_LOCAL_CHAIN_ID,
+		`${process.env.NEXT_PUBLIC_RPC_ENDPOINT.replace(/http/g, 'ws')}/websocket`
+	);
 	resolve(client);
 });
 
