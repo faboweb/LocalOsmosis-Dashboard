@@ -1,40 +1,28 @@
-## Getting Started
+## LocalOsmosis chain state developer explorer
 
-The obvious stuff
+LocalOsmosis is a very effective dev environment for developers, enthusiasts, and hobbyists alike.
+Compared to traditional blockchain development it provides an un-heard of streamlined DX, with a tiny snag - the absence of an equally intuitive, easy-to-use UI.
 
-```shell
-yarn
-yarn dev
-```
+This repository kicked off with the goal of providing such a UI.
+For the developer, from the developer, of the developer. A chain state developer explorer.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser and enjoy.
+Due to the nature of the task at hand, strongly typed & accurate representations of the blockchain was not the goal,
+but an explorer that can display on-chain data in real-time effectively despite being connected to a node in a very versatile environment(during development).
 
-## The stack
+Features that would normally be deemed crucial for traditional block explorers were decisively omitted.
+Data that would be ignored for the average user but difficult to read due to a rapidly rising console yet crucial when developing were displayed with a high priority
 
-Nextjs + Redux-toolkit + tailwind + scss
+Due to obvious time constraints and the absence of a backend, not all milestones that would be considered relatively crucial were omitted.
 
-## Info
+### Milestones
 
-- Was written in a tight timeframe(less than 3 workdays) so a quite a few corners were cut with a garage / hackathon mindset. Willing to answer any question regarding design / code structure.
-- Nextjs + tailwind + scss I think is a no-brainer(maybe Windi but haven't tried it yet)
-- Tried Redux, MobX, React Context, Recoil, Redux toolkit. Found Redux toolkit to be the most Developer Friendly with no known performance issues so used that.
-- Focused on getting quick results ASAP using tailwind to it's fullest. As a result some components are probably possible to extract but did not for time's sake
-- In hindsight using SWR would have been more efficient but the app was ISR at the beginning and didn't think refactoring would be worth the time after switching to CSR.
-- Definitely not as polished as I would be comfortable with atm, but the structure is similar to what I would do for this type of project and should give you a general idea of how I work.
-- Commit naming is terrible, but who does proper conventional commits in the beginning of a project? Personally think it's a waste of time in the early stages of a project
-- Used https://cosmos.directory/ api for ease of development
-- Switched Uptimes to participated blocks as it's something I would probably have suggested to a designer if we were working together
-- Added the validator's image to the page
+- IBC / fully indexed transactions
+- account related visualizations
+- Deep-coupling with the local development environment such that ie) interacting with smart contracts become more convenient
+- Turn into PWA that automatically runs like a sidecar when you run a node
+- With sufficient data, derive the api schemas for a given contract.
 
-## Known issues
+### Findings
 
-- API is terribly unstable. You're [not going to get transaction data consistently](https://www.loom.com/share/23d4305f4bf84e9d9154f41a880065e6)
-- Does say relayers, but it's validators atm. I couldn't find easily accessible relayer public data
-- Heartbeat was set to uptime, Broadcaster was set to max(uptime - 0~2, 0)
-- ReactTooltip doesn't work on first hover & tooltips don't disappear on DEV(known issue)
-- No SEO
-- tx table is not very responsive. Benchmarking Mintscan's method of displaying txs in mobile would be a nice way to go
-
-## Deploying
-
-Use Vercel or netlify. Shouldn't need any more than that
+- Tracking interactions with Smart Contracts are not trivial. 
+- Without the schema getting information about the Smart Contract is almost impossible
