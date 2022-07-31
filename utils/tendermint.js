@@ -34,7 +34,7 @@ class Client {
 			await new Promise(resolve => setTimeout(() => resolve(), 5000 * attempt));
 		}
 
-		this.ws = new W3CWebSocket(this.uri, 'echo-protocol');
+		this.ws = new W3CWebSocket(this.uri);
 
 		this.ws.onopen = () => {
 			this.closed = false;
