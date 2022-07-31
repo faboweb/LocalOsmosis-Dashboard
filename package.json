@@ -50,8 +50,7 @@
 		"tailwind-scrollbar-hide": "^1.1.7",
 		"type-fest": "^2.14.0",
 		"uuidv4": "^6.2.13",
-		"websocket": "^1.0.34",
-		"ws": "^8.8.1"
+		"websocket": "^1.0.34"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^3.2.0",
