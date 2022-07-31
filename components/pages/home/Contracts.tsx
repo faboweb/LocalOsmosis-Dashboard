@@ -47,13 +47,13 @@ export const Contracts: FunctionComponent = () => {
 					<DisplayJson data={history} collapseStringsAfterLength={100} />
 					<h4 className="mb-4 mt-4">Siblings</h4>
 					{siblings.length > 0 ? (
-						<div className="flex flex-col mb-4">
-							{siblings.map(addr => (
-								<a key={addr} onClick={() => loadSibling(addr)}>
-									{addr}
-								</a>
+						<ul className="flex flex-col mb-4">
+							{siblings.map((addr, index) => (
+								<li key={index} className="hover:text-accent transition-colors duration-200 cursor-pointer">
+									<a onClick={() => loadSibling(addr)}>{addr}</a>
+								</li>
 							))}
-						</div>
+						</ul>
 					) : (
 						<span>No Siblings</span>
 					)}
