@@ -1,5 +1,7 @@
 ## LocalOsmosis chain state developer explorer
 
+### Intro
+
 LocalOsmosis is a very effective dev environment for developers, enthusiasts, and hobbyists alike.
 Compared to traditional blockchain development it provides an un-heard of streamlined DX, with a tiny snag - the absence of an equally intuitive, easy-to-use UI.
 
@@ -14,6 +16,12 @@ Data that would be ignored for the average user but difficult to read due to a r
 
 Due to obvious time constraints and the absence of a backend, not all milestones that would be considered relatively crucial were omitted.
 
+### How to use
+
+- yarn
+- set `.env` variables to the desired endpoint and chainID
+- yarn dev
+
 ### Milestones
 
 - IBC / fully indexed transactions
@@ -26,3 +34,4 @@ Due to obvious time constraints and the absence of a backend, not all milestones
 
 - Tracking interactions with Smart Contracts are not trivial. 
 - Without the schema getting information about the Smart Contract is almost impossible
+- Tracking cosmos events are not really supported by traditional libraries, we needed to subscribe directly to rpc nodes.
