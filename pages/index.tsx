@@ -6,7 +6,7 @@ import { Consensus, Contracts, Events, NodeConfig, Txs } from '@/components/page
 
 const Home: NextPage = () => {
 	return (
-		<div className="grid h-full w-full grid-rows-[200px,1fr,2fr] gap-5">
+		<div className="grid h-full w-full grid-rows-[200px,max-content,2fr] gap-5">
 			<div className="grid h-full w-full grid-cols-2 gap-5">
 				<Card>
 					<ChartDisplay />
