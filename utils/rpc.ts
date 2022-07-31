@@ -73,9 +73,7 @@ const connectors = new Promise(async resolve => {
 	};
 
 	const block = async (height) => {
-		return (
-			await tmClient.block(height)
-		).block;
+		return cosmwasmClient.getBlock(height);
 	};
 
 	const blocks = async () => {
@@ -89,10 +87,7 @@ const connectors = new Promise(async resolve => {
 
 	const txs = async () => {
 		const { latestBlockHeight } = (await tmClient.status()).syncInfo;
-		const _txs = await tmClient.txSearchAll({
-			query: 'tx.height>' + (latestBlockHeight - 3000),
-			per_page: 50,
-		});
+		const _txs = await cosmwasmClient.searchTx('tx.height>' + (latestBlockHeight - 3000));
 		return _txs;
 	};
 
