@@ -1,4 +1,4 @@
-const WebSocket = require('websocket')
+const WebSocket = require('ws')
 
 function convertWsArgs(args = {}) {
 	for (const key in args) {
