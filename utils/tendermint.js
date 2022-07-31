@@ -1,4 +1,4 @@
-const WebSocket = require('ws')
+const W3CWebSocket = require('websocket').w3cwebsocket;
 
 function convertWsArgs(args = {}) {
 	for (const key in args) {
@@ -34,7 +34,7 @@ class Client {
 			await new Promise(resolve => setTimeout(() => resolve(), 5000 * attempt));
 		}
 
-		this.ws = new WebSocket(this.uri);
+		this.ws = new W3CWebSocket(this.uri, 'echo-protocol');
 
 		this.ws.onopen = () => {
 			this.closed = false;
