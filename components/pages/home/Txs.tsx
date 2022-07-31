@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 
 import copy from 'copy-to-clipboard';
 import isEmpty from 'lodash/isEmpty';
@@ -8,6 +8,7 @@ import { DialogWrapper } from '@/components/common/DialogWrapper';
 import { DisplayJson } from '@/components/common/DisplayJson';
 import { Loader } from '@/components/common/Loader';
 import { useStore } from '@/hooks/common/useStore';
+import api from '@/utils/rpc';
 import { formatNum, truncateMiddle } from '@/utils/scripts';
 
 interface Tx {
@@ -19,6 +20,7 @@ interface Tx {
 export const Txs: FunctionComponent = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalTx, setModalTx] = useState<Tx>();
+	const [unconfirmedTxs, setUnconfirmedTxs] = useState<Tx[]>([]);
 	const {
 		state: { txs },
 	} = useStore();
@@ -28,6 +30,13 @@ export const Txs: FunctionComponent = () => {
 	const onClick = useCallback((tx: Tx) => {
 		setModalTx(tx);
 		setIsOpen(prevState => !prevState);
+	}, []);
+
+	useEffect(() => {
+		setInterval(async () => {
+			const txs = await (await api).unconfirmedTxs();
+			setUnconfirmedTxs(txs);
+		}, 1000);
 	}, []);
 
 	return (
@@ -55,6 +64,7 @@ export const Txs: FunctionComponent = () => {
 					))}
 				</ul>
 			)}
+			<p className="text-center hover:text-accent mt-auto">Mempool {unconfirmedTxs.length ?? 0} Txs</p>
 		</div>
 	);
 };
