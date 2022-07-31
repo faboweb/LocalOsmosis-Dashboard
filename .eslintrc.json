@@ -31,7 +31,7 @@
 			},
 			"rules": {
 				"prettier/prettier": [
-					"error",
+					"warn",
 					{
 						"singleQuote": true,
 						"endOfLine": "auto"
@@ -54,8 +54,8 @@
 				], // Follow the same ordering as the official plugin `prettier-plugin-tailwindcss`
 				"tailwindcss/no-custom-classname": "off",
 				"@typescript-eslint/no-unused-vars": "off",
-				"unused-imports/no-unused-imports": "error",
-				"unused-imports/no-unused-vars": ["warning", { "argsIgnorePattern": "^_" }],
+				"unused-imports/no-unused-imports": "warn",
+				"unused-imports/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
 				"no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
 				"no-underscore-dangle": "off",
 				"@typescript-eslint/no-use-before-define": "off"

@@ -17,7 +17,7 @@ export const DialogWrapper: FunctionComponent<DialogProps> = ({ isOpen, setIsOpe
 						className="pointer-events-none fixed top-0 left-0 z-1 w-full h-full opacity-80 bg-[#282646] blur-sm"
 					/>
 					<div className="fixed z-10 inset-0 flex items-center justify-center p-2">
-						<div className="relative overflow-auto w-[90vw] h-[90vh] p-3 bg-modal rounded-lg rounded-2xl border-enabledGold border">
+						<div className="relative overflow-auto w-[90vw] h-[90vh] p-3 bg-modal rounded-2xl border-enabledGold border">
 							<button
 								type="button"
 								onClick={() => setIsOpen(false)}
