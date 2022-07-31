@@ -4,29 +4,49 @@ import { FunctionComponent, MutableRefObject, useEffect, useRef, useState } from
 import copy from 'copy-to-clipboard';
 import filter from 'lodash/filter';
 import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 import startCase from 'lodash/startCase';
 import { toast } from 'react-toastify';
 
+import { Loader } from '@/components/common/Loader';
 import { useStore } from '@/hooks/common/useStore';
 import { truncateMiddle } from '@/utils/scripts';
 
 export const Events: FunctionComponent = () => {
+	const [autoScroll, setAutoScroll] = useState(false);
 	const {
 		state: { events },
 	} = useStore();
 	const eventKeys = Object.keys(events);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	return (
-		<div className="flex flex-col gap-3 h-full w-full max-h-[60vh]">
+		<div className="flex flex-col gap-3 h-full w-full max-h-[60vh] relative">
+			<div className="absolute top-[10px] right-[10px] flex items-center gap-1">
+				<label className="text-white text-sm">Auto Scroll</label>
+				<input
+					type="checkbox"
+					checked={autoScroll}
+					onChange={e => setAutoScroll(e.target.checked)}
+					className="text-white text-sm"
+				/>
+			</div>
 			<p className="text-center">Events</p>
-			<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-				{eventKeys.length > 0 && (
-					<>
-						<EventTabs eventKeys={eventKeys} />
-						<EventPanel event={eventKeys[selectedIndex]} data={events?.[eventKeys[selectedIndex]]} />
-					</>
-				)}
-			</Tab.Group>
+			{isEmpty(events) ? (
+				<Loader />
+			) : (
+				<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
+					{eventKeys.length > 0 && (
+						<>
+							<EventTabs eventKeys={eventKeys} />
+							<EventPanel
+								autoScroll={autoScroll}
+								event={eventKeys[selectedIndex]}
+								data={events?.[eventKeys[selectedIndex]]}
+							/>
+						</>
+					)}
+				</Tab.Group>
+			)}
 		</div>
 	);
 };
@@ -47,19 +67,18 @@ const EventTabs: FunctionComponent<{ eventKeys: string[] }> = ({ eventKeys }) =>
 	);
 };
 
-const EventPanel: FunctionComponent<{ event: string; data: any[] }> = ({ event, data }) => {
+const EventPanel: FunctionComponent<{ event: string; data: any[]; autoScroll: boolean }> = ({
+	event,
+	data,
+	autoScroll,
+}) => {
 	const ref = useRef<HTMLDivElement>() as MutableRefObject<HTMLDivElement>;
 	useEffect(() => {
-		if (!ref.current) return;
+		if (!ref.current || !autoScroll) return;
 		ref.current.scrollIntoView({ behavior: 'smooth' });
-	}, [data.length]);
+	}, [data.length, autoScroll]);
 	return (
-		<ul
-			onClick={() => {
-				toast('Copied to clipboard', { autoClose: 250 });
-				copy(JSON.stringify(data));
-			}}
-			className="overflow-y-auto flex flex-col-reverse">
+		<ul className="overflow-y-auto flex flex-col-reverse">
 			{data.map((value, index) => (
 				<Item key={index} data={value} />
 			))}
@@ -71,7 +90,12 @@ const EventPanel: FunctionComponent<{ event: string; data: any[] }> = ({ event, 
 const Item: FunctionComponent<{ data: any }> = ({ data }) => {
 	const dataKeys = Object.keys(data).filter(value => value !== 'height');
 	return (
-		<li className="flex items-start gap-2 border-b border-enabledGold border-opacity-20 py-1">
+		<li
+			onClick={() => {
+				toast('Copied to clipboard', { autoClose: 250 });
+				copy(JSON.stringify(data));
+			}}
+			className="flex items-start gap-2 border-b border-enabledGold border-opacity-20 py-1 hover:text-accent cursor-pointer">
 			<p className="text-[14px] leading-tight min-w-[15vw]">{data.height}</p>
 			<ul className="flex flex-col items-start min-w-[15vw]">
 				{dataKeys.map(dataKey => (
